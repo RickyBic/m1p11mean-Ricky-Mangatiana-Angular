@@ -81,4 +81,12 @@ export class ServiceComponent {
     });
   }
 
+  resetForm(): void {
+    this.serviceID = '';
+    this.nom = '';
+    this.prix = 0;
+    this.duree = 0;
+    this.commission = 0;
+  }
+
 }

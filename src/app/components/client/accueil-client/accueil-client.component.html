@@ -1,0 +1,6 @@
+<div *ngIf="utilisateurConnecte">
+  <h1>Bienvenue, {{ utilisateurConnecte.prenom }} {{ utilisateurConnecte.nom }}</h1>
+</div>
+<button (click)="deconnexion()">se Déconnecter</button>
+<app-historique-rendezvous></app-historique-rendezvous>
+<app-preferences></app-preferences>
