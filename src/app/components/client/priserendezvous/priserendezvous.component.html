@@ -208,6 +208,29 @@
                     </ng-container>
 
                     <ng-container *ngIf="step === 1">
+                        <div *ngIf="error" class="accordion mt-3" id="accordionExample">
+                            <div class="card accordion-item alert-danger">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button type="button" class="accordion-button collapsed bg-danger text-white"
+                                        data-bs-toggle="collapse" data-bs-target="#accordionThree" aria-expanded="false"
+                                        aria-controls="accordionThree">
+                                        {{ errorMessage }}&nbsp;&nbsp;<span class="tf-icons bx bx-info-circle"></span>
+                                    </button>
+                                </h2>
+                                <div id="accordionThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="mb-3"></div>
+                                    <div class="accordion-body">
+                                        Voici les solutions qui s'offrent à vous :
+                                        <ul>
+                                            <li>choisir un autre employé pour ce service</li>
+                                            <li>changer l'heure ou la date du rendez-vous</li>
+                                            <li>supprimer le service</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="divider">
                             <div class="divider-text">Services séléctionnés</div>
                         </div>

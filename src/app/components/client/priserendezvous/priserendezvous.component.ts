@@ -18,6 +18,8 @@ export class PriserendezvousComponent {
   serviceToAddId: string = "";
   employeToAddId: string = "";
   loading: boolean = false;
+  error: boolean = false;
+  errorMessage: string = "";
   totalPaiement: number = 0;
 
   constructor(private http: HttpClient) {
@@ -94,7 +96,11 @@ export class PriserendezvousComponent {
           setTimeout(() => {
             this.loading = false;
             if (resultData.status === false) {
-              alert(resultData.message);
+              this.error = true;
+              this.errorMessage = resultData.message + " pour le service " + resultData.service.toLowerCase();
+              setTimeout(() => {
+                this.error = false; // Hide error message
+              }, 20000);
             } else {
               this.totalPaiement = this.selectedServices.reduce((total, service) => total + service.prix, 0);
               this.step = 2;
