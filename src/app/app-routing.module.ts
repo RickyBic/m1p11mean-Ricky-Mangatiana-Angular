@@ -6,6 +6,7 @@ import { InscriptionComponent } from './components/client/inscription/inscriptio
 import { AccueilManagerComponent } from './components/manager/accueil-manager/accueil-manager.component';
 import { AccueilEmployeComponent } from './components/employe/accueil-employe/accueil-employe.component';
 import { AccueilClientComponent } from './components/client/accueil-client/accueil-client.component';
+import { PriserendezvousComponent } from './components/client/priserendezvous/priserendezvous.component';
 
 const routes: Routes = [
   { path: 'services', component: ServiceComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'manager', component: AccueilManagerComponent },
   { path: 'employe', component: AccueilEmployeComponent },
   { path: 'client', component: AccueilClientComponent },
+  { path: 'prise-rendez-vous', component: PriserendezvousComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

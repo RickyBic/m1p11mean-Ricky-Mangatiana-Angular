@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServiceComponent } from './components/manager/service/service.component';
 import { LoginComponent } from './components/login/login.component';
 import { InscriptionComponent } from './components/client/inscription/inscription.component';
+import { PriserendezvousComponent } from './components/client/priserendezvous/priserendezvous.component';
 import { PersonnelComponent } from './components/manager/personnel/personnel.component';
 import { AccueilEmployeComponent } from './components/employe/accueil-employe/accueil-employe.component';
 import { AccueilClientComponent } from './components/client/accueil-client/accueil-client.component';
@@ -17,6 +18,7 @@ import { RendezvousComponent } from './components/employe/rendezvous/rendezvous.
 import { HistoriqueRendezvousComponent } from './components/client/historique-rendezvous/historique-rendezvous.component';
 import { PreferencesComponent } from './components/client/preferences/preferences.component';
 import { ProfilEmployeComponent } from './components/employe/profil-employe/profil-employe.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,7 @@ import { ProfilEmployeComponent } from './components/employe/profil-employe/prof
     HistoriqueRendezvousComponent,
     PreferencesComponent,
     ProfilEmployeComponent,
+    PriserendezvousComponent
   ],
   imports: [
     BrowserModule,
