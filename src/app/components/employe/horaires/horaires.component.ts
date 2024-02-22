@@ -3,11 +3,11 @@ import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
 import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
 @Component({
-  selector: 'app-preferences',
-  templateUrl: './preferences.component.html',
-  styleUrls: ['./preferences.component.css']
+  selector: 'app-horaires',
+  templateUrl: './horaires.component.html',
+  styleUrls: ['./horaires.component.css']
 })
-export class PreferencesComponent {
+export class HorairesComponent {
 
   currentUser: any;
 

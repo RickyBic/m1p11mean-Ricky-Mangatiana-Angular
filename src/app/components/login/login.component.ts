@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UtilisateurServiceService } from 'src/app/services/utilisateur-service.service';
+import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
+import { UtilisateurService } from 'src/app/service/utilisateur.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,21 +13,24 @@ export class LoginComponent {
 
   erreurMessage: string = '';
 
-  constructor(private utilisateurService : UtilisateurServiceService, private router : Router) {
+  constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.scriptLoaderService.loadScripts();
   }
 
   onSubmit() {
     this.utilisateurService.login(this.email, this.motDePasse).subscribe(
       response => {
-        console.log(response);
-        if(response.profil === 0 ) {
-          this.router.navigate(['/manager']);
+        if (response.profil === 0) {
+          this.router.navigate(['/personnel']);
         }
-        else if(response.profil === 1) {
-          this.router.navigate(['/employe']);
+        else if (response.profil === 1) {
+          this.router.navigate(['/rendez-vous']);
         }
         else {
-          this.router.navigate(['/client']);
+          this.router.navigate(['/prise-rendez-vous']);
         }
       },
       error => {

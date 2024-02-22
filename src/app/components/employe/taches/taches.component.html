@@ -62,39 +62,30 @@
             <ul class="menu-inner py-1">
 
                 <li class="menu-item">
-                    <a routerLink="/prise-rendez-vous" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-calendar-check"></i>
-                        <div data-i18n="Basic">Réservation</div>
+                    <a routerLink="/rendez-vous" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-calendar"></i>
+                        <div data-i18n="Basic">Rendez-vous</div>
                     </a>
                 </li>
 
                 <li class="menu-item">
-                    <a routerLink="/historique" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-history"></i>
-                        <div data-i18n="Basic">Historique</div>
+                    <a routerLink="/profil" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-user"></i>
+                        <div data-i18n="Basic">Profil</div>
                     </a>
-                </li>
-
-                <li class="menu-item active open">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-star"></i>
-                        <div data-i18n="Layouts">Préférences</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item active">
-                            <a routerLink="/preferences" class="menu-link">
-                                <div data-i18n="Without menu">Service et employé</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
                 <li class="menu-item">
-                    <a routerLink="/notifications" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-bell"></i>
-                        <div data-i18n="Basic">Notifications&nbsp;&nbsp;</div>
-                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger"
-                            style="width: 20px;height: 20px;">4</span>
+                    <a routerLink="/horaires" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-time"></i>
+                        <div data-i18n="Basic">Horaires</div>
+                    </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a routerLink="/taches" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-task"></i>
+                        <div data-i18n="Basic">Tâches</div>
                     </a>
                 </li>
 
@@ -146,8 +137,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">{{ currentUser.prenom }}</span>
-                                                <small class="text-muted">{{ currentUser.email }}</small>
+                                                <span class="fw-semibold d-block">Mangatiana</span>
+                                                <small class="text-muted">mangatiana@gmail.com</small>
                                             </div>
                                         </div>
                                     </a>
@@ -156,7 +147,7 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="javascript:void(0)" (click)="deconnexion()">
+                                    <a class="dropdown-item" href="auth-login-basic.html">
                                         <i class="bx bx-power-off me-2"></i>
                                         <span class="align-middle">Se déconnecter</span>
                                     </a>
@@ -182,8 +173,8 @@
                             <!-- Custom style1 Breadcrumb -->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1">
-                                    <li class="breadcrumb-item">Préférences</li>
-                                    <li class="breadcrumb-item">Service et employé</li>
+                                    <li class="breadcrumb-item">Tâches</li>
+                                    <li class="breadcrumb-item">Votre journée</li>
                                 </ol>
                             </nav>
                             <!--/ Custom style1 Breadcrumb -->
@@ -191,68 +182,63 @@
                     </div>
                     <!--/ Breadcrumb -->
 
+                    <div class="row mb-4">
+                        <div class="col-lg-12 col-md-4 order-1">
+                            <div class="row">
+                                <div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title d-flex align-items-start justify-content-between">
+                                                <div class="avatar flex-shrink-0">
+                                                    <img src="../assets/img/icons/unicons/chart-success.png"
+                                                        alt="chart success" class="rounded" />
+                                                </div>
+                                            </div>
+                                            <span class="fw-semibold d-block mb-3">
+                                                Commission pour la journée (en % par rapport au prix des services)
+                                            </span>
+                                            <h3 class="card-title mb-2">12000.14 <small class="text-muted">Ar</small>
+                                            </h3>
+                                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
+                                                +12.80%</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- / Content -->
+
+                        <div class="content-backdrop fade"></div>
+                    </div>
+
                     <!-- Contextual Classes -->
                     <div class="card mb-4">
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>Date</th>
+                                        <th>Client</th>
                                         <th>Service</th>
-                                        <th>Employé préféré</th>
-                                        <th></th>
+                                        <th>Durée</th>
+                                        <th>Etat</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
                                     <tr class="table-success">
-                                        <td class="col-3"><span class="badge bg-label-primary me-1">Coupe à sec
-                                                cours</span></td>
-                                        <td class="col-4">
-                                            <div class="input-group input-group-merge">
-                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                        class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary">
-                                                <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                            </a>
-                                            &nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
-                                                <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
-                                            </a>
-                                        </td>
+                                        <td>20/02/2023 16:17</td>
+                                        <td>RAKOTO Mangatiana</td>
+                                        <td>Coupe à sec cours</td>
+                                        <td><span class="badge bg-label-primary me-1">15 minutes</span></td>
+                                        <td><span class="badge bg-label-dark me-1">Effectué</span></td>
                                     </tr>
                                     <tr class="table-success">
-                                        <td class="col-3">
-                                            <div class="input-group input-group-merge">
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>Coupe à sec cours</option>
-                                                    <option>Entrée hammam simple</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="col-4">
-                                            <div class="input-group input-group-merge">
-                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                        class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning">
-                                                <span class="tf-icons bx bx-plus-circle"></span>&nbsp;&nbsp;Ajouter
-                                            </a>
-                                        </td>
+                                        <td>20/02/2023 10:00</td>
+                                        <td>RAMIAKAMANANA Ricky</td>
+                                        <td>Entrée hammam simple</td>
+                                        <td><span class="badge bg-label-primary me-1">45 minutes</span></td>
+                                        <td><span class="badge bg-label-dark me-1">Effectué</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -260,17 +246,13 @@
                     </div>
                     <!--/ Contextual Classes -->
 
+
+                    <!-- Content wrapper -->
                 </div>
-                <!-- / Content -->
-
-                <div class="content-backdrop fade"></div>
+                <!-- / Layout page -->
             </div>
-            <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-    </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-</div>
-<!-- / Layout wrapper -->
+            <!-- Overlay -->
+            <div class="layout-overlay layout-menu-toggle"></div>
+        </div>
+        <!-- / Layout wrapper -->

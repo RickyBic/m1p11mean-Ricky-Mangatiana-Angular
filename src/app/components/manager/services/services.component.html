@@ -62,39 +62,23 @@
             <ul class="menu-inner py-1">
 
                 <li class="menu-item">
-                    <a routerLink="/prise-rendez-vous" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-calendar-check"></i>
-                        <div data-i18n="Basic">Réservation</div>
+                    <a routerLink="/personnel" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-group"></i>
+                        <div data-i18n="Basic">Personnel</div>
+                    </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a routerLink="/services" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-cut"></i>
+                        <div data-i18n="Basic">Services</div>
                     </a>
                 </li>
 
                 <li class="menu-item">
-                    <a routerLink="/historique" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-history"></i>
-                        <div data-i18n="Basic">Historique</div>
-                    </a>
-                </li>
-
-                <li class="menu-item active open">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-star"></i>
-                        <div data-i18n="Layouts">Préférences</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item active">
-                            <a routerLink="/preferences" class="menu-link">
-                                <div data-i18n="Without menu">Service et employé</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="menu-item">
-                    <a routerLink="/notifications" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-bell"></i>
-                        <div data-i18n="Basic">Notifications&nbsp;&nbsp;</div>
-                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger"
-                            style="width: 20px;height: 20px;">4</span>
+                    <a routerLink="/statistiques" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+                        <div data-i18n="Basic">Statistiques</div>
                     </a>
                 </li>
 
@@ -182,8 +166,8 @@
                             <!-- Custom style1 Breadcrumb -->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1">
-                                    <li class="breadcrumb-item">Préférences</li>
-                                    <li class="breadcrumb-item">Service et employé</li>
+                                    <li class="breadcrumb-item">Services</li>
+                                    <li class="breadcrumb-item">Gestion</li>
                                 </ol>
                             </nav>
                             <!--/ Custom style1 Breadcrumb -->
@@ -197,29 +181,33 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Service</th>
-                                        <th>Employé préféré</th>
-                                        <th></th>
+                                        <th>Nom</th>
+                                        <th>Image</th>
+                                        <th>Prix</th>
+                                        <th>Durée</th>
+                                        <th>Commission</th>
+                                        <th>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning"
+                                                data-bs-toggle="modal" data-bs-target="#basicModal">
+                                                <span class="tf-icons bx bx-user-plus"></span>&nbsp;&nbsp;Ajouter un
+                                                service
+                                            </a>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr class="table-success">
-                                        <td class="col-3"><span class="badge bg-label-primary me-1">Coupe à sec
-                                                cours</span></td>
-                                        <td class="col-4">
-                                            <div class="input-group input-group-merge">
-                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                        class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
-                                                </select>
-                                            </div>
-                                        </td>
+                                    <tr class="table-warning">
+                                        <td>Coupe à sec cours</td>
+                                        <td>coiffure.png</td>
+                                        <td><span class="badge bg-label-success me-1">15000 Ar</span></td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary">
-                                                <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
+                                            <span class="badge bg-label-primary me-1">15 minutes</span>
+                                        </td>
+                                        <td><span class="badge bg-label-danger me-1">20%</span></td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#basicModal">
+                                                <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
                                             </a>
                                             &nbsp;&nbsp;
                                             <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
@@ -227,30 +215,22 @@
                                             </a>
                                         </td>
                                     </tr>
-                                    <tr class="table-success">
-                                        <td class="col-3">
-                                            <div class="input-group input-group-merge">
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>Coupe à sec cours</option>
-                                                    <option>Entrée hammam simple</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="col-4">
-                                            <div class="input-group input-group-merge">
-                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                        class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
-                                                </select>
-                                            </div>
-                                        </td>
+                                    <tr class="table-warning">
+                                        <td>Entrée hammam simple</td>
+                                        <td>hammam.png</td>
+                                        <td><span class="badge bg-label-success me-1">140000 Ar</span></td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning">
-                                                <span class="tf-icons bx bx-plus-circle"></span>&nbsp;&nbsp;Ajouter
+                                            <span class="badge bg-label-primary me-1">45 minutes</span>
+                                        </td>
+                                        <td><span class="badge bg-label-danger me-1">30%</span></td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#basicModal">
+                                                <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
+                                            </a>
+                                            &nbsp;&nbsp;
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
+                                                <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
                                             </a>
                                         </td>
                                     </tr>
@@ -259,6 +239,82 @@
                         </div>
                     </div>
                     <!--/ Contextual Classes -->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel1">
+                                        Insertion&nbsp;&nbsp;▪️&nbsp;&nbsp;Modification</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-icon-default-fullname">
+                                            &nbsp;Nom
+                                        </label>
+                                        <div class="input-group input-group-merge mb-3">
+                                            <span id="basic-icon-default-fullname2" class="input-group-text"><i
+                                                    class="bx bx-cut"></i></span>
+                                            <input type="text" class="form-control" id="basic-icon-default-fullname"
+                                                placeholder="Saisissez le nom"
+                                                aria-describedby="basic-icon-default-fullname2" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-icon-default-phone">
+                                            &nbsp;Prix
+                                        </label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="basic-icon-default-phone2" class="input-group-text"><i
+                                                    class="bx bx-dollar-circle"></i></span>
+                                            <input type="number" id="prix" class="form-control" placeholder="0.0" />
+                                            <span id="basic-icon-default-email2" class="input-group-text">Ar</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-icon-default-phone">
+                                            &nbsp;Durée
+                                        </label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="basic-icon-default-phone2" class="input-group-text"><i
+                                                    class="bx bx-timer"></i></span>
+                                            <input type="number" id="duree" class="form-control" placeholder="0" />
+                                            <span id="basic-icon-default-email2" class="input-group-text">mn</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-icon-default-phone">
+                                            &nbsp;Commission
+                                        </label>
+                                        <div class="input-group input-group-merge">
+                                            <span id="basic-icon-default-phone2" class="input-group-text"><i
+                                                    class="bx bx-group"></i></span>
+                                            <input type="number" id="commission" class="form-control"
+                                                placeholder="0.0" />
+                                            <span id="basic-icon-default-email2" class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="exampleFormControlSelect2" class="form-label">Employés</label>
+                                        <select multiple class="form-select" id="exampleFormControlSelect2"
+                                            aria-label="Multiple select example">
+                                            <option value="1">🚹 RAKOTONIAINA Fitia</option>
+                                            <option value="2">🚹 RAKOTOMALALA Faniry</option>
+                                        </select>
+                                    </div>
+                                    <a href="javascript:void(0)" class="btn btn-outline-success">
+                                        <span class="tf-icons bx bx-save"></span>&nbsp;&nbsp;Enregistrer
+                                    </a>&nbsp;&nbsp;
+                                    <a href="javascript:void(0)" class="btn btn-outline-warning">
+                                        <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Rénitialiser
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- / Content -->

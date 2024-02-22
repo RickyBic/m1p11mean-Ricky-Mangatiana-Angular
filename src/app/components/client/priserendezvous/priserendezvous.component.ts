@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Service, Utilisateur } from 'src/app/modules/interface/model';
+import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
+import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
 @Component({
   selector: 'app-priserendezvous',
@@ -10,6 +13,7 @@ import { Service, Utilisateur } from 'src/app/modules/interface/model';
 export class PriserendezvousComponent {
 
   baseURL = "http://localhost:5000";
+  currentUser: any;
   services: Service[] = [];
   employes: Utilisateur[] = [];
   step: number = 0; // [0] Séléction service >> [1] Séléction date et heure >> [2] Paiement
@@ -21,10 +25,23 @@ export class PriserendezvousComponent {
   error: boolean = false;
   errorMessage: string = "";
   totalPaiement: number = 0;
+  numeroMvola: string = "";
+  numeroOrange: string = "";
+  numeroAirtel: string = "";
+  numeroVisa: string = "";
 
-  constructor(private http: HttpClient) {
+  constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient, private router: Router) {
+    this.currentUser = utilisateurService.getCurrentUser();
     this.getServices();
     this.getEmployes();
+  }
+
+  ngOnInit(): void {
+    this.scriptLoaderService.loadScripts();
+  }
+
+  deconnexion() {
+    this.utilisateurService.deconnexion();
   }
 
   getServices() {
@@ -35,7 +52,7 @@ export class PriserendezvousComponent {
   }
 
   getEmployes() {
-    this.http.get<Utilisateur[]>(this.baseURL + "/utilisateurs/employes")
+    this.http.get<Utilisateur[]>(this.baseURL + "/listeEmploye")
       .subscribe((resultData) => {
         this.employes = resultData;
       });
@@ -126,20 +143,28 @@ export class PriserendezvousComponent {
     this.step = 1;
   }
 
-  payer() {
-    let bodyData = {
-      "client": "65cf6832ba2cb0fcffd9a470", // temporaire
-      "services": this.selectedServices,
-      "dateHeure": this.dateHeure
-    };
-    this.http.post(this.baseURL + "/paiement", bodyData).subscribe(
-      (resultData: any) => {
-        alert(resultData.message);
-      },
-      (error) => {
-        console.error('Error occurred:', error);
-      }
-    );
+  payer(modedepaiement: string) {
+    if (modedepaiement !== '') {
+      let bodyData = {
+        "client": this.currentUser._id,
+        "services": this.selectedServices,
+        "dateHeure": this.dateHeure
+      };
+      this.http.post(this.baseURL + "/paiement", bodyData).subscribe(
+        (resultData: any) => {
+          this.router.navigate(['/historique'], {
+            queryParams: {
+              notificationMessage: resultData.message
+            }
+          });
+        },
+        (error) => {
+          console.error('Error occurred:', error);
+        }
+      );
+    } else {
+      alert("Veuillez complétez le champ");
+    }
   }
 
 }

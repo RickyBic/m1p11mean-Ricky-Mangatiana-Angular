@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
+import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
 @Component({
-  selector: 'app-service',
-  templateUrl: './service.component.html',
-  styleUrls: ['./service.component.css']
+  selector: 'app-services',
+  templateUrl: './services.component.html',
+  styleUrls: ['./services.component.css']
 })
-export class ServiceComponent {
+export class ServicesComponent {
 
   baseURL = "http://localhost:5000";
+  currentUser: any;
   services: any[] = [];
   serviceID = ""; // ID de l'élément dans le formulaire
   nom: string = "";
@@ -16,8 +19,17 @@ export class ServiceComponent {
   duree: number = 0;
   commission: number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient) {
+    this.currentUser = utilisateurService.getCurrentUser();
     this.readService();
+  }
+
+  ngOnInit(): void {
+    this.scriptLoaderService.loadScripts();
+  }
+
+  deconnexion() {
+    this.utilisateurService.deconnexion();
   }
 
   createService() {

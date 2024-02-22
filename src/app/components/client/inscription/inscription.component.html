@@ -57,38 +57,46 @@
                         </a>
                     </div>
                     <!-- /Logo -->
-                    <h4 class="mb-2">Welcome to Splendeur💆‍♀️</h4>
-                    <p class="mb-4">Incrivez-vous pour découvrir l'art de la beauté sublimée dans notre salon :</p>
+                    <h5 class="mb-2">Splendeur vous attend <small class="text-muted">...</small></h5>
+                    <p class="mb-4">Incrivez-vous pour découvrir l'art de la beauté sublimée dans notre salon
+                        <small>!</small>
+                    </p>
 
                     <form id="formAuthentication" class="mb-4" (ngSubmit)="registerNewClient()" method="POST">
-                      <div class="mb-3">
-                          <label for="nom" class="form-label">Nom</label>
-                          <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom" placeholder="Saisissez votre nom" autofocus />
-                      </div>
-                      <div class="mb-3">
-                          <label for="prenom" class="form-label">Prénom</label>
-                          <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="prenom" placeholder="Saisissez votre prénom" />
-                      </div>
-                      <div class="mb-3">
-                          <label for="email" class="form-label">Email</label>
-                          <input type="text" class="form-control" id="email" name="email" [(ngModel)]="email" placeholder="Saisissez votre email" />
-                      </div>
-                      <div class="mb-4 form-password-toggle">
-                          <label class="form-label" for="password">Mot de passe</label>
-                          <div class="input-group input-group-merge">
-                              <input type="password" id="password" class="form-control" name="password" [(ngModel)]="motDePasse" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
-                              <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                          </div>
-                      </div>
-                      <button type="submit" class="btn btn-primary d-grid w-100">S'inscrire</button>
-                  </form>
-                  <div *ngIf="successMessage" class="alert alert-success" role="alert">
-                    {{ successMessage }}
-                  </div>
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom"
+                                placeholder="Saisissez votre nom" autofocus />
+                        </div>
+                        <div class="mb-3">
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="prenom"
+                                placeholder="Saisissez votre prénom" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="email"
+                                placeholder="Saisissez votre email" />
+                        </div>
+                        <div class="mb-4 form-password-toggle">
+                            <label class="form-label" for="password">Mot de passe</label>
+                            <div class="input-group input-group-merge">
+                                <input type="password" id="password" class="form-control" name="password"
+                                    [(ngModel)]="motDePasse"
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="password" />
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary d-grid w-100">S'inscrire</button>
+                    </form>
+                    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+                        {{ successMessage }}
+                    </div>
 
                     <p class="text-center">
                         <span>Vous avez déjà un compte?</span>
-                        <a routerLink="/login">
+                        <a routerLink="/se-connecter">
                             <span>&nbsp;Se connecter</span>
                         </a>
                     </p>

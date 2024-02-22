@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { UtilisateurServiceService } from 'src/app/services/utilisateur-service.service';
+import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
+import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
 @Component({
   selector: 'app-personnel',
@@ -7,22 +8,29 @@ import { UtilisateurServiceService } from 'src/app/services/utilisateur-service.
   styleUrls: ['./personnel.component.css']
 })
 export class PersonnelComponent {
+  currentUser: any;
   nom: string = '';
   prenom: string = '';
   email: string = '';
   motDePasse: string = '';
   successMessage: string = '';
 
-  listeEmploye : any[] = [];
+  listeEmploye: any[] = [];
 
-  constructor(private utilisateurService : UtilisateurServiceService) {
-    this.utilisateurService.employeSubject.subscribe((data)=>{
+  constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService) {
+    this.currentUser = utilisateurService.getCurrentUser();
+    this.utilisateurService.employeSubject.subscribe((data) => {
       this.listeEmploye = data;
     });
   }
 
   ngOnInit(): void {
+    this.scriptLoaderService.loadScripts();
     this.getAllEmploye();
+  }
+
+  deconnexion() {
+    this.utilisateurService.deconnexion();
   }
 
   ajouterEmploye() {

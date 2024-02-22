@@ -62,9 +62,39 @@
             <ul class="menu-inner py-1">
 
                 <li class="menu-item active">
-                    <a href="cards-basic.html" class="menu-link">
+                    <a routerLink="/prise-rendez-vous" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-calendar-check"></i>
                         <div data-i18n="Basic">Réservation</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a routerLink="/historique" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-history"></i>
+                        <div data-i18n="Basic">Historique</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-star"></i>
+                        <div data-i18n="Layouts">Préférences</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a routerLink="/preferences" class="menu-link">
+                                <div data-i18n="Without menu">Service et employé</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a routerLink="/notifications" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-bell"></i>
+                        <div data-i18n="Basic">Notifications&nbsp;&nbsp;</div>
+                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger"
+                            style="width: 20px;height: 20px;">4</span>
                     </a>
                 </li>
 
@@ -86,6 +116,14 @@
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
+                    <!-- Search -->
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Rechercher..." />
+                        </div>
+                    </div>
+                    <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -108,8 +146,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">John Doe</span>
-                                                <small class="text-muted">Admin</small>
+                                                <span class="fw-semibold d-block">{{ currentUser.prenom }}</span>
+                                                <small class="text-muted">{{ currentUser.email }}</small>
                                             </div>
                                         </div>
                                     </a>
@@ -118,34 +156,9 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bx bx-user me-2"></i>
-                                        <span class="align-middle">My Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bx bx-cog me-2"></i>
-                                        <span class="align-middle">Settings</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="d-flex align-items-center align-middle">
-                                            <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                            <span class="flex-grow-1 align-middle">Billing</span>
-                                            <span
-                                                class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="auth-login-basic.html">
+                                    <a class="dropdown-item" href="javascript:void(0)" (click)="deconnexion()">
                                         <i class="bx bx-power-off me-2"></i>
-                                        <span class="align-middle">Log Out</span>
+                                        <span class="align-middle">Se déconnecter</span>
                                     </a>
                                 </li>
                             </ul>
@@ -209,23 +222,23 @@
 
                     <ng-container *ngIf="step === 1">
                         <div *ngIf="error" class="accordion mt-3" id="accordionExample">
-                            <div class="card accordion-item alert-danger">
+                            <div class="card accordion-item alert-danger text-dark">
                                 <h2 class="accordion-header" id="headingThree">
-                                    <button type="button" class="accordion-button collapsed bg-danger text-white"
+                                    <button type="button" class="accordion-button collapsed bg-label-danger"
                                         data-bs-toggle="collapse" data-bs-target="#accordionThree" aria-expanded="false"
                                         aria-controls="accordionThree">
-                                        {{ errorMessage }}&nbsp;&nbsp;<span class="tf-icons bx bx-info-circle"></span>
+                                        {{ errorMessage }}&nbsp;&nbsp;<span class="tf-icons bx bx-error"></span>
                                     </button>
                                 </h2>
                                 <div id="accordionThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="mb-3"></div>
                                     <div class="accordion-body">
-                                        Voici les solutions qui s'offrent à vous :
+                                        <span class="tf-icons bx bx-info-circle"></span>&nbsp;&nbsp;Voici les solutions
+                                        qui s'offrent à vous :
                                         <ul>
-                                            <li>choisir un autre employé pour ce service</li>
-                                            <li>changer l'heure ou la date du rendez-vous</li>
-                                            <li>supprimer le service</li>
+                                            <li>choisissez un autre employé pour ce service</li>
+                                            <li>changez l'heure ou la date de votre rendez-vous</li>
+                                            <li>supprimez le service séléctionné</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -292,7 +305,7 @@
                                             </select>
                                         </div>
                                         <a href="javascript:void(0)" (click)="ajouter()"
-                                            class="btn btn-outline-success">
+                                            class="btn btn-outline-warning">
                                             <span class="tf-icons bx bx-plus-circle"></span>&nbsp; Ajouter
                                         </a>
                                     </div>
@@ -308,7 +321,7 @@
                                     [(ngModel)]="dateHeure" id="html5-datetime-local-input" [min]="dateHeure" />
                             </div>
                             <div *ngIf="loading===false" class="demo-inline-spacing">
-                                <a href="javascript:void(0)" (click)="reserver()" class="btn btn-outline-success">
+                                <a href="javascript:void(0)" (click)="reserver()" class="btn btn-outline-primary">
                                     <span class="tf-icons bx bx-check-circle"></span>&nbsp; Réserver
                                 </a>
                                 <a href="javascript:void(0)" (click)="annuler()" class="btn btn-outline-danger">
@@ -336,7 +349,7 @@
                                                 <h5 class="card-title">Par MVola</h5>
                                                 <p class="card-text">
                                                     Net à payer&nbsp;&nbsp;▪️&nbsp;&nbsp;<strong>{{ totalPaiement
-                                                        }}Ar</strong>
+                                                        }} Ar</strong>
                                                 </p>
                                                 <p class="card-text">
                                                     <small class="text-muted">
@@ -345,9 +358,9 @@
                                                 </p>
                                                 <div class="col-md-10">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="+261 34 ** *** **" />
-                                                        <a href="javascript:void(0)" (click)="payer()"
+                                                        <input [(ngModel)]="numeroMvola" type="text"
+                                                            class="form-control" placeholder="+261 34 ** *** **" />
+                                                        <a href="javascript:void(0)" (click)="payer(numeroMvola)"
                                                             class="btn btn-outline-info">
                                                             <span class="tf-icons bx bx-wallet"></span>&nbsp; Payer
                                                         </a>
@@ -370,7 +383,7 @@
                                                 <h5 class="card-title">Par Airtel Money</h5>
                                                 <p class="card-text">
                                                     Net à payer&nbsp;&nbsp;▪️&nbsp;&nbsp;<strong>{{ totalPaiement
-                                                        }}Ar</strong>
+                                                        }} Ar</strong>
                                                 </p>
                                                 <p class="card-text">
                                                     <small class="text-muted">
@@ -379,9 +392,9 @@
                                                 </p>
                                                 <div class="col-md-10">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="+261 33 ** *** **" />
-                                                        <a href="javascript:void(0)" (click)="payer()"
+                                                        <input [(ngModel)]="numeroAirtel" type="text"
+                                                            class="form-control" placeholder="+261 33 ** *** **" />
+                                                        <a href="javascript:void(0)" (click)="payer(numeroAirtel)"
                                                             class="btn btn-outline-info">
                                                             <span class="tf-icons bx bx-wallet"></span>&nbsp; Payer
                                                         </a>
@@ -406,7 +419,7 @@
                                                 <h5 class="card-title">Par Orange Money</h5>
                                                 <p class="card-text">
                                                     Net à payer&nbsp;&nbsp;▪️&nbsp;&nbsp;<strong>{{ totalPaiement
-                                                        }}Ar</strong>
+                                                        }} Ar</strong>
                                                 </p>
                                                 <p class="card-text">
                                                     <small class="text-muted">
@@ -415,9 +428,9 @@
                                                 </p>
                                                 <div class="col-md-10">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="+261 32 ** *** **" />
-                                                        <a href="javascript:void(0)" (click)="payer()"
+                                                        <input [(ngModel)]="numeroOrange" type="text"
+                                                            class="form-control" placeholder="+261 32 ** *** **" />
+                                                        <a href="javascript:void(0)" (click)="payer(numeroOrange)"
                                                             class="btn btn-outline-info">
                                                             <span class="tf-icons bx bx-wallet"></span>&nbsp; Payer
                                                         </a>
@@ -440,7 +453,7 @@
                                                 <h5 class="card-title">Par Carte Visa</h5>
                                                 <p class="card-text">
                                                     Net à payer&nbsp;&nbsp;▪️&nbsp;&nbsp;<strong>{{ totalPaiement
-                                                        }}Ar</strong>
+                                                        }} Ar</strong>
                                                 </p>
                                                 <p class="card-text">
                                                     <small class="text-muted">
@@ -449,9 +462,9 @@
                                                 </p>
                                                 <div class="col-md-10">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
+                                                        <input [(ngModel)]="numeroVisa" type="text" class="form-control"
                                                             placeholder="**** **** **** ****" />
-                                                        <a href="javascript:void(0)" (click)="payer()"
+                                                        <a href="javascript:void(0)" (click)="payer(numeroVisa)"
                                                             class="btn btn-outline-info">
                                                             <span class="tf-icons bx bx-wallet"></span>&nbsp; Payer
                                                         </a>

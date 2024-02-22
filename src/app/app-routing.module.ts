@@ -1,22 +1,39 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ServiceComponent } from './components/manager/service/service.component';
 import { LoginComponent } from './components/login/login.component';
 import { InscriptionComponent } from './components/client/inscription/inscription.component';
-import { AccueilManagerComponent } from './components/manager/accueil-manager/accueil-manager.component';
-import { AccueilEmployeComponent } from './components/employe/accueil-employe/accueil-employe.component';
-import { AccueilClientComponent } from './components/client/accueil-client/accueil-client.component';
 import { PriserendezvousComponent } from './components/client/priserendezvous/priserendezvous.component';
+import { HistoriqueComponent } from './components/client/historique/historique.component';
+import { PreferencesComponent } from './components/client/preferences/preferences.component';
+import { NotificationsComponent } from './components/client/notifications/notifications.component';
+import { RendezvousComponent } from './components/employe/rendezvous/rendezvous.component';
+import { ProfilComponent } from './components/employe/profil/profil.component';
+import { HorairesComponent } from './components/employe/horaires/horaires.component';
+import { TachesComponent } from './components/employe/taches/taches.component';
+import { PersonnelComponent } from './components/manager/personnel/personnel.component';
+import { StatistiquesComponent } from './components/manager/statistiques/statistiques.component';
+import { ServicesComponent } from './components/manager/services/services.component';
 
 const routes: Routes = [
-  { path: 'services', component: ServiceComponent },
-  { path: 'login', component: LoginComponent },
+  /*----------[LOGIN]----------*/
+  { path: 'se-connecter', component: LoginComponent },
+  /*----------[CLIENT]----------*/
   { path: 'inscription', component: InscriptionComponent },
-  { path: 'manager', component: AccueilManagerComponent },
-  { path: 'employe', component: AccueilEmployeComponent },
-  { path: 'client', component: AccueilClientComponent },
   { path: 'prise-rendez-vous', component: PriserendezvousComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: 'historique', component: HistoriqueComponent },
+  { path: 'preferences', component: PreferencesComponent },
+  { path: 'notifications', component: NotificationsComponent },
+  /*----------[EMPLOYE]----------*/
+  { path: 'rendez-vous', component: RendezvousComponent },
+  { path: 'profil', component: ProfilComponent },
+  { path: 'horaires', component: HorairesComponent },
+  { path: 'taches', component: TachesComponent },
+  /*----------[MANAGER]----------*/
+  { path: 'personnel', component: PersonnelComponent },
+  { path: 'services', component: ServicesComponent },
+  { path: 'statistiques', component: StatistiquesComponent },
+  /*----------[INDEX]----------*/
+  { path: '', redirectTo: 'se-connecter', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -75,13 +75,13 @@
                     </a>
                 </li>
 
-                <li class="menu-item active open">
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-star"></i>
                         <div data-i18n="Layouts">Préférences</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item active">
+                        <li class="menu-item">
                             <a routerLink="/preferences" class="menu-link">
                                 <div data-i18n="Without menu">Service et employé</div>
                             </a>
@@ -89,7 +89,7 @@
                     </ul>
                 </li>
 
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a routerLink="/notifications" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-bell"></i>
                         <div data-i18n="Basic">Notifications&nbsp;&nbsp;</div>
@@ -173,7 +173,6 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
-
                 <div class="container-xxl flex-grow-1 container-p-y">
 
                     <!-- Breadcrumb -->
@@ -182,8 +181,8 @@
                             <!-- Custom style1 Breadcrumb -->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1">
-                                    <li class="breadcrumb-item">Préférences</li>
-                                    <li class="breadcrumb-item">Service et employé</li>
+                                    <li class="breadcrumb-item">Notifications</li>
+                                    <li class="breadcrumb-item">Rappels et offres spéciales</li>
                                 </ol>
                             </nav>
                             <!--/ Custom style1 Breadcrumb -->
@@ -191,74 +190,60 @@
                     </div>
                     <!--/ Breadcrumb -->
 
-                    <!-- Contextual Classes -->
-                    <div class="card mb-4">
-                        <div class="table-responsive text-nowrap">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Service</th>
-                                        <th>Employé préféré</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-border-bottom-0">
-                                    <tr class="table-success">
-                                        <td class="col-3"><span class="badge bg-label-primary me-1">Coupe à sec
-                                                cours</span></td>
-                                        <td class="col-4">
-                                            <div class="input-group input-group-merge">
-                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                        class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary">
-                                                <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                            </a>
-                                            &nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
-                                                <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-success">
-                                        <td class="col-3">
-                                            <div class="input-group input-group-merge">
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>Coupe à sec cours</option>
-                                                    <option>Entrée hammam simple</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="col-4">
-                                            <div class="input-group input-group-merge">
-                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                        class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning">
-                                                <span class="tf-icons bx bx-plus-circle"></span>&nbsp;&nbsp;Ajouter
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Custom content with heading -->
+                    <div>
+                        <div class="demo-inline-spacing mt-3">
+                            <div class="list-group">
+                                <span
+                                    class="list-group-item list-group-item-action flex-column align-items-start active">
+                                    <div class="d-flex justify-content-between w-100">
+                                        <h6>Rappel rendez-vous</h6>
+                                        <small class="text-white">il y a 3 minutes</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        N'oubliez pas votre rendez-vous du 19/02/2023 à 16:15 !
+                                    </p>
+                                </span>
+                            </div>
+                            <div class="list-group">
+                                <span
+                                    class="list-group-item list-group-item-action flex-column align-items-start active">
+                                    <div class="d-flex justify-content-between w-100">
+                                        <h6>Offre spéciale</h6>
+                                        <small class="text-white">il y a 5 minutes</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        Profitez de 25% de remise à partir du 04/03/2023 !
+                                    </p>
+                                </span>
+                            </div>
+                            <div class="list-group">
+                                <span
+                                    class="list-group-item list-group-item-action flex-column align-items-start active">
+                                    <div class="d-flex justify-content-between w-100">
+                                        <h6>Offre spéciale</h6>
+                                        <small class="text-white">il y a 14 minutes</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        Profitez de 50% de remise pour la saint-valentin !
+                                    </p>
+                                </span>
+                            </div>
+                            <div class="list-group">
+                                <span
+                                    class="list-group-item list-group-item-action flex-column align-items-start active">
+                                    <div class="d-flex justify-content-between w-100">
+                                        <h6>Rappel rendez-vous</h6>
+                                        <small class="text-white">il y a 20 minutes</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        N'oubliez pas votre rendez-vous du 18/02/2023 à 10:00 !
+                                    </p>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <!--/ Contextual Classes -->
+                    <!--/ Custom content with heading -->
 
                 </div>
                 <!-- / Content -->

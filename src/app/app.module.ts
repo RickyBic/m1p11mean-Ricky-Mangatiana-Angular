@@ -5,35 +5,37 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ServiceComponent } from './components/manager/service/service.component';
 import { LoginComponent } from './components/login/login.component';
 import { InscriptionComponent } from './components/client/inscription/inscription.component';
 import { PriserendezvousComponent } from './components/client/priserendezvous/priserendezvous.component';
 import { PersonnelComponent } from './components/manager/personnel/personnel.component';
-import { AccueilEmployeComponent } from './components/employe/accueil-employe/accueil-employe.component';
-import { AccueilClientComponent } from './components/client/accueil-client/accueil-client.component';
-import { AccueilManagerComponent } from './components/manager/accueil-manager/accueil-manager.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RendezvousComponent } from './components/employe/rendezvous/rendezvous.component';
-import { HistoriqueRendezvousComponent } from './components/client/historique-rendezvous/historique-rendezvous.component';
+import { HistoriqueComponent } from './components/client/historique/historique.component';
 import { PreferencesComponent } from './components/client/preferences/preferences.component';
-import { ProfilEmployeComponent } from './components/employe/profil-employe/profil-employe.component';
+import { NotificationsComponent } from './components/client/notifications/notifications.component';
+import { ProfilComponent } from './components/employe/profil/profil.component';
+import { HorairesComponent } from './components/employe/horaires/horaires.component';
+import { TachesComponent } from './components/employe/taches/taches.component';
+import { StatistiquesComponent } from './components/manager/statistiques/statistiques.component';
+import { ServicesComponent } from './components/manager/services/services.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServiceComponent,
     LoginComponent,
     InscriptionComponent,
     PersonnelComponent,
-    AccueilEmployeComponent,
-    AccueilClientComponent,
-    AccueilManagerComponent,
     RendezvousComponent,
-    HistoriqueRendezvousComponent,
+    HistoriqueComponent,
     PreferencesComponent,
-    ProfilEmployeComponent,
-    PriserendezvousComponent
+    PriserendezvousComponent,
+    NotificationsComponent,
+    ProfilComponent,
+    HorairesComponent,
+    TachesComponent,
+    StatistiquesComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,

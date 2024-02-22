@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { UtilisateurServiceService } from 'src/app/services/utilisateur-service.service';
+import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
+import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
 @Component({
   selector: 'app-rendezvous',
@@ -7,12 +8,16 @@ import { UtilisateurServiceService } from 'src/app/services/utilisateur-service.
   styleUrls: ['./rendezvous.component.css']
 })
 export class RendezvousComponent {
+  currentUser: any;
   rendezVous: any[] = [];
   utilisateurConnecte: any;
 
-  constructor(private utilisateurService : UtilisateurServiceService) { }
+  constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService) {
+    this.currentUser = utilisateurService.getCurrentUser();
+  }
 
   ngOnInit(): void {
+    this.scriptLoaderService.loadScripts();
     this.utilisateurService.user.subscribe(user => {
       this.utilisateurConnecte = user;
     });
@@ -20,4 +25,9 @@ export class RendezvousComponent {
       this.rendezVous = data;
     });
   }
+
+  deconnexion() {
+    this.utilisateurService.deconnexion();
+  }
+
 }
