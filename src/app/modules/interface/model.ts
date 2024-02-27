@@ -5,10 +5,10 @@ export interface Utilisateur {
     prenom: string,
     email: string,
     motDePasse: string,
-    preferences: {
+    preferences: [{
         servicePrefere: string,
         employePrefere: string
-    },
+    }],
     horairestravail: string[],
     services: string[]
 }
@@ -37,4 +37,10 @@ export interface Rendezvous {
     service: string,
     employe: string,
     etat: number
+}
+
+export interface Depense {
+    _id: string,
+    nom: string,
+    montant: number
 }

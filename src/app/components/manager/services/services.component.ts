@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
 import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
@@ -18,10 +18,12 @@ export class ServicesComponent {
   prix: number = 0;
   duree: number = 0;
   commission: number = 0;
+  @ViewChild('closeButton') closeButton: ElementRef;
 
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
     this.readService();
+    this.closeButton = {} as ElementRef;
   }
 
   ngOnInit(): void {
@@ -32,33 +34,33 @@ export class ServicesComponent {
     this.utilisateurService.deconnexion();
   }
 
+  closeModal() {
+    // Close the modal
+    this.closeButton.nativeElement.click();
+  }
+
   createService() {
+    this.commission /= 100; // 0.0 [MongoDB]
     if (this.serviceID == '') {
       let bodyData = {
         "nom": this.nom,
         "prix": this.prix,
         "duree": this.duree,
-        "commssion": this.commission
+        "commission": this.commission
       };
       this.http.post(this.baseURL + "/service", bodyData).subscribe((resultData: any) => {
-        console.log(resultData);
-        alert(resultData.message);
-        this.nom = "";
-        this.prix = 0;
-        this.duree = 0;
-        this.commission = 0;
         this.readService();
       });
     }
     else {
       this.updateService();
     }
+    this.closeModal();
   }
 
   readService() {
     this.http.get(this.baseURL + "/services")
       .subscribe((resultData: any) => {
-        console.log(resultData);
         this.services = resultData;
       });
   }
@@ -68,7 +70,7 @@ export class ServicesComponent {
     this.nom = data.nom;
     this.prix = data.prix;
     this.duree = data.duree;
-    this.commission = data.commission;
+    this.commission = data.commission * 100;
   }
 
   updateService() {
@@ -76,19 +78,15 @@ export class ServicesComponent {
       "nom": this.nom,
       "prix": this.prix,
       "duree": this.duree,
-      "commission": this.commission,
+      "commission": this.commission
     };
     this.http.put(this.baseURL + "/services/" + this.serviceID, bodyData).subscribe((resultData: any) => {
-      console.log(resultData);
-      alert(resultData.message);
       this.readService();
     });
   }
 
   deleteService(data: any) {
     this.http.delete(this.baseURL + "/services/" + data._id).subscribe((resultData: any) => {
-      console.log(resultData);
-      alert(resultData.message);
       this.readService();
     });
   }

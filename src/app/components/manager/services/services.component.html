@@ -76,6 +76,13 @@
                 </li>
 
                 <li class="menu-item">
+                    <a routerLink="/depenses" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-dollar"></i>
+                        <div data-i18n="Basic">Dépenses</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
                     <a routerLink="/statistiques" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-bar-chart"></i>
                         <div data-i18n="Basic">Statistiques</div>
@@ -187,8 +194,9 @@
                                         <th>Durée</th>
                                         <th>Commission</th>
                                         <th>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning"
-                                                data-bs-toggle="modal" data-bs-target="#basicModal">
+                                            <a href="javascript:void(0)" (click)="resetForm()"
+                                                class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+                                                data-bs-target="#basicModal">
                                                 <span class="tf-icons bx bx-user-plus"></span>&nbsp;&nbsp;Ajouter un
                                                 service
                                             </a>
@@ -196,40 +204,24 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr class="table-warning">
-                                        <td>Coupe à sec cours</td>
-                                        <td>coiffure.png</td>
-                                        <td><span class="badge bg-label-success me-1">15000 Ar</span></td>
+                                    <tr *ngFor="let service of services" class="table-warning">
+                                        <td>{{ service.nom }}</td>
+                                        <td>{{ service.image }}</td>
+                                        <td><span class="badge bg-label-success me-1">{{ service.prix }} Ar</span></td>
                                         <td>
-                                            <span class="badge bg-label-primary me-1">15 minutes</span>
+                                            <span class="badge bg-label-primary me-1">{{ service.duree }} minutes</span>
                                         </td>
-                                        <td><span class="badge bg-label-danger me-1">20%</span></td>
+                                        <td><span class="badge bg-label-danger me-1">{{ service.commission * 100
+                                                }}%</span></td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary"
-                                                data-bs-toggle="modal" data-bs-target="#basicModal">
+                                            <a href="javascript:void(0)" (click)="setUpdateService(service)"
+                                                class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                                data-bs-target="#basicModal">
                                                 <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
                                             </a>
                                             &nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
-                                                <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-warning">
-                                        <td>Entrée hammam simple</td>
-                                        <td>hammam.png</td>
-                                        <td><span class="badge bg-label-success me-1">140000 Ar</span></td>
-                                        <td>
-                                            <span class="badge bg-label-primary me-1">45 minutes</span>
-                                        </td>
-                                        <td><span class="badge bg-label-danger me-1">30%</span></td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary"
-                                                data-bs-toggle="modal" data-bs-target="#basicModal">
-                                                <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
-                                            </a>
-                                            &nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
+                                            <a href="javascript:void(0)" (click)="deleteService(service)"
+                                                class="btn btn-sm btn-outline-danger">
                                                 <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
                                             </a>
                                         </td>
@@ -247,7 +239,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel1">
                                         Insertion&nbsp;&nbsp;▪️&nbsp;&nbsp;Modification</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    <button #closeButton type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -258,7 +250,7 @@
                                         <div class="input-group input-group-merge mb-3">
                                             <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                                     class="bx bx-cut"></i></span>
-                                            <input type="text" class="form-control" id="basic-icon-default-fullname"
+                                            <input [(ngModel)]="nom" type="text" class="form-control" id="nom"
                                                 placeholder="Saisissez le nom"
                                                 aria-describedby="basic-icon-default-fullname2" />
                                         </div>
@@ -270,7 +262,8 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-phone2" class="input-group-text"><i
                                                     class="bx bx-dollar-circle"></i></span>
-                                            <input type="number" id="prix" class="form-control" placeholder="0.0" />
+                                            <input [(ngModel)]="prix" type="number" id="prix" class="form-control"
+                                                placeholder="0.0" />
                                             <span id="basic-icon-default-email2" class="input-group-text">Ar</span>
                                         </div>
                                     </div>
@@ -281,7 +274,8 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-phone2" class="input-group-text"><i
                                                     class="bx bx-timer"></i></span>
-                                            <input type="number" id="duree" class="form-control" placeholder="0" />
+                                            <input [(ngModel)]="duree" type="number" id="duree" class="form-control"
+                                                placeholder="0" />
                                             <span id="basic-icon-default-email2" class="input-group-text">mn</span>
                                         </div>
                                     </div>
@@ -292,24 +286,17 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-phone2" class="input-group-text"><i
                                                     class="bx bx-group"></i></span>
-                                            <input type="number" id="commission" class="form-control"
-                                                placeholder="0.0" />
+                                            <input [(ngModel)]="commission" type="number" id="commission"
+                                                class="form-control" placeholder="0" />
                                             <span id="basic-icon-default-email2" class="input-group-text">%</span>
                                         </div>
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="exampleFormControlSelect2" class="form-label">Employés</label>
-                                        <select multiple class="form-select" id="exampleFormControlSelect2"
-                                            aria-label="Multiple select example">
-                                            <option value="1">🚹 RAKOTONIAINA Fitia</option>
-                                            <option value="2">🚹 RAKOTOMALALA Faniry</option>
-                                        </select>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-success">
+                                    <a href="javascript:void(0)" (click)="createService()"
+                                        class="btn btn-outline-success">
                                         <span class="tf-icons bx bx-save"></span>&nbsp;&nbsp;Enregistrer
                                     </a>&nbsp;&nbsp;
-                                    <a href="javascript:void(0)" class="btn btn-outline-warning">
-                                        <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Rénitialiser
+                                    <a href="javascript:void(0)" (click)="closeModal()" class="btn btn-outline-danger">
+                                        <span class="tf-icons bx bx-log-out"></span>&nbsp;&nbsp;Retour
                                     </a>
                                 </div>
                             </div>

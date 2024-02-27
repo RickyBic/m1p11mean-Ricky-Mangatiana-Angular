@@ -62,30 +62,30 @@
             <ul class="menu-inner py-1">
 
                 <li class="menu-item">
-                    <a routerLink="/rendez-vous" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-calendar"></i>
-                        <div data-i18n="Basic">Rendez-vous</div>
+                    <a routerLink="/personnel" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-group"></i>
+                        <div data-i18n="Basic">Personnel</div>
                     </a>
                 </li>
 
                 <li class="menu-item">
-                    <a routerLink="/profil" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-user"></i>
-                        <div data-i18n="Basic">Profil</div>
-                    </a>
-                </li>
-
-                <li class="menu-item">
-                    <a routerLink="/horaires" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-time"></i>
-                        <div data-i18n="Basic">Horaires</div>
+                    <a routerLink="/services" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-cut"></i>
+                        <div data-i18n="Basic">Services</div>
                     </a>
                 </li>
 
                 <li class="menu-item active">
-                    <a routerLink="/taches" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-task"></i>
-                        <div data-i18n="Basic">Tâches</div>
+                    <a routerLink="/depenses" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-dollar"></i>
+                        <div data-i18n="Basic">Dépenses</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a routerLink="/statistiques" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+                        <div data-i18n="Basic">Statistiques</div>
                     </a>
                 </li>
 
@@ -173,8 +173,8 @@
                             <!-- Custom style1 Breadcrumb -->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1">
-                                    <li class="breadcrumb-item">Tâches</li>
-                                    <li class="breadcrumb-item">Votre journée</li>
+                                    <li class="breadcrumb-item">Dépenses</li>
+                                    <li class="breadcrumb-item">Gestion</li>
                                 </ol>
                             </nav>
                             <!--/ Custom style1 Breadcrumb -->
@@ -182,67 +182,56 @@
                     </div>
                     <!--/ Breadcrumb -->
 
-                    <div class="row mb-4">
-                        <div class="col-lg-12 col-md-4 order-1">
-                            <div class="row">
-                                <div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="card-title d-flex align-items-start justify-content-between">
-                                                <div class="avatar flex-shrink-0">
-                                                    <img src="../assets/img/icons/unicons/chart-success.png"
-                                                        alt="chart success" class="rounded" />
-                                                </div>
-                                            </div>
-                                            <span class="fw-semibold d-block mb-3">
-                                                Commission pour la journée (en % par rapport au prix des services)
-                                            </span>
-                                            <h3 class="card-title mb-2">
-                                                {{ commission }} <small class="text-muted">Ar</small>
-                                            </h3>
-                                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                                +{{ pourcentage * 100 }}%</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- / Content -->
-
-                        <div class="content-backdrop fade"></div>
-                    </div>
-
                     <!-- Contextual Classes -->
                     <div class="card mb-4">
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Client</th>
-                                        <th>Service</th>
-                                        <th>Prix</th>
-                                        <th>Commission</th>
-                                        <th>Etat</th>
+                                        <th>Nom</th>
+                                        <th>Montant</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr *ngFor="let tache of taches" class="table-success">
-                                        <td>{{ tache.date | date:'dd/MM/yyyy HH:mm' }}</td>
-                                        <td>{{ tache.client.nom }} {{ tache.client.prenom }}</td>
-                                        <td>{{ tache.service.nom }}</td>
-                                        <td>
-                                            <span class="badge bg-label-primary me-1">
-                                                {{ tache.service.prix }} Ar
-                                            </span>
+                                    <tr *ngFor="let depense of depenses" class="table-danger">
+                                        <td><span class="badge bg-label-warning me-1">{{ depense.nom }}</span></td>
+                                        <td><span class="badge bg-label-primary me-1">{{ depense.montant }} Ar /
+                                                mois</span>
                                         </td>
                                         <td>
-                                            <span class="badge bg-label-success me-1">
-                                                {{ tache.service.commission * 100 }}%
-                                            </span>
+                                            <a href="javascript:void(0)" (click)="supprimer(depense._id)"
+                                                class="btn btn-sm btn-outline-danger">
+                                                <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
+                                                dépense
+                                            </a>
                                         </td>
-                                        <td><span class="badge bg-label-dark me-1">Effectué</span></td>
+                                    </tr>
+                                    <tr class="table-danger">
+                                        <td class="col-3">
+                                            <div class="input-group input-group-merge">
+                                                <input [(ngModel)]="nom" type="text" class="form-control" id="nom"
+                                                    placeholder="Saisissez le nom"
+                                                    aria-describedby="basic-icon-default-fullname2" />
+                                            </div>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="input-group input-group-merge">
+                                                <span id="basic-icon-default-phone2" class="input-group-text"><i
+                                                        class="bx bx-dollar-circle"></i></span>
+                                                <input [(ngModel)]="montant" type="number" id="montant"
+                                                    class="form-control" placeholder="0.0" />
+                                                <span id="basic-icon-default-email2" class="input-group-text">Ar /
+                                                    mois</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" (click)="ajouter()"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <span class="tf-icons bx bx-list-plus"></span>&nbsp;&nbsp;Ajouter
+                                                dépense
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -250,13 +239,17 @@
                     </div>
                     <!--/ Contextual Classes -->
 
-
-                    <!-- Content wrapper -->
                 </div>
-                <!-- / Layout page -->
-            </div>
+                <!-- / Content -->
 
-            <!-- Overlay -->
-            <div class="layout-overlay layout-menu-toggle"></div>
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
         </div>
-        <!-- / Layout wrapper -->
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->

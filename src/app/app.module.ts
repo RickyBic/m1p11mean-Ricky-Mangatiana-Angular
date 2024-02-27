@@ -19,6 +19,7 @@ import { HorairesComponent } from './components/employe/horaires/horaires.compon
 import { TachesComponent } from './components/employe/taches/taches.component';
 import { StatistiquesComponent } from './components/manager/statistiques/statistiques.component';
 import { ServicesComponent } from './components/manager/services/services.component';
+import { DepensesComponent } from './components/manager/depenses/depenses.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ServicesComponent } from './components/manager/services/services.compon
     HorairesComponent,
     TachesComponent,
     StatistiquesComponent,
-    ServicesComponent
+    ServicesComponent,
+    DepensesComponent
   ],
   imports: [
     BrowserModule,
