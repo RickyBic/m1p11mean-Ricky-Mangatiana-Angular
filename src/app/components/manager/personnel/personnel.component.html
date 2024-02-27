@@ -192,8 +192,8 @@
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
-                        data-bs-target="#basicModal">
+                      <a href="javascript:void(0)" (click)="reset()" class="btn btn-sm btn-outline-warning"
+                        data-bs-toggle="modal" data-bs-target="#basicModal">
                         <span class="tf-icons bx bx-user-plus"></span>&nbsp;&nbsp;Ajouter un employé
                       </a>
                     </th>
@@ -206,8 +206,8 @@
                     <td>{{ employe.prenom }}</td>
                     <td>{{ employe.email }}</td>
                     <td>
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" (click)="selectionnerEmploye(employe)"
-                        data-bs-target="#basicModal">
+                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                        (click)="selectionnerEmploye(employe)" data-bs-target="#basicModal">
                         <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
                       </a>
                       &nbsp;&nbsp;
@@ -242,20 +242,22 @@
                     <div class="input-group input-group-merge mb-3">
                       <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                       <input type="text" class="form-control" id="basic-icon-default-fullname"
-                        placeholder="Saisissez son prénom" name="prenom" [(ngModel)]="prenom" aria-describedby="basic-icon-default-fullname2" />
+                        placeholder="Saisissez son prénom" name="prenom" [(ngModel)]="prenom"
+                        aria-describedby="basic-icon-default-fullname2" />
                     </div>
                     <div class="input-group">
                       <span class="input-group-text" id="basic-addon11"><small>NOM</small></span>
-                      <input type="text" class="form-control" name="nom" [(ngModel)]="nom" placeholder="Saisissez son nom" aria-label="Username"
-                        aria-describedby="basic-addon11" />
+                      <input type="text" class="form-control" name="nom" [(ngModel)]="nom"
+                        placeholder="Saisissez son nom" aria-label="Username" aria-describedby="basic-addon11" />
                     </div>
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-email">&nbsp;Email</label>
                     <div class="input-group input-group-merge">
                       <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                      <input type="text" id="basic-icon-default-email" class="form-control" name="email" [(ngModel)]="email"
-                        placeholder="Saisissez son email" aria-describedby="basic-icon-default-email2" />
+                      <input type="text" id="basic-icon-default-email" class="form-control" name="email"
+                        [(ngModel)]="email" placeholder="Saisissez son email"
+                        aria-describedby="basic-icon-default-email2" />
                     </div>
                   </div>
                   <div class="mb-3">
@@ -264,13 +266,14 @@
                     </label>
                     <div class="input-group input-group-merge">
                       <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-key"></i></span>
-                      <input type="text" id="password" class="form-control" placeholder="Saisissez son mot de passe" name="motDePasse" [(ngModel)]="motDePasse"
-                        aria-describedby="password" />
+                      <input type="text" id="password" class="form-control" placeholder="Saisissez son mot de passe"
+                        name="motDePasse" [(ngModel)]="motDePasse" aria-describedby="password" />
                     </div>
                   </div>
                   <div class="mb-4">
                     <label for="exampleFormControlSelect2" class="form-label">Services</label>
-                    <select multiple class="form-select" id="exampleFormControlSelect2" aria-label="Multiple select example" [(ngModel)]="selectedServices">
+                    <select multiple class="form-select" id="exampleFormControlSelect2"
+                      aria-label="Multiple select example" [(ngModel)]="selectedServices">
                       <option *ngFor="let service of listeService" [ngValue]="service._id">{{ service.nom }}</option>
                     </select>
                   </div>

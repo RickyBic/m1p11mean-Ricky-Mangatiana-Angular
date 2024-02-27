@@ -40,31 +40,31 @@ export class PersonnelComponent {
   }
 
   ajouterEmploye() {
-    if (this.employeSelectionne) {
-        this.utilisateurService.modifierUtilisateurEtService(this.employeSelectionne._id, this.nom, this.prenom, this.email, this.motDePasse, this.selectedServices).subscribe(() => {
-            this.successMessage = 'Employé modifié avec succès';
-            setTimeout(() => {
-              this.successMessage = '';
-            }, 5000);
-            this.getAllEmploye();
-            this.reset();
-            this.employeSelectionne = null;
-        }, (error) => {
-            console.error('Erreur lors de la modification de l\'employé', error);
-            this.successMessage = 'Une erreur s\'est produite lors de la modification de l\'employé';
-        });
+    if (this.employeSelectionne !== null) {
+      this.utilisateurService.modifierUtilisateurEtService(this.employeSelectionne._id, this.nom, this.prenom, this.email, this.motDePasse, this.selectedServices).subscribe(() => {
+        this.successMessage = 'Employé modifié avec succès';
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 5000);
+        this.getAllEmploye();
+        this.reset();
+        this.employeSelectionne = null;
+      }, (error) => {
+        console.error('Erreur lors de la modification de l\'employé', error);
+        this.successMessage = 'Une erreur s\'est produite lors de la modification de l\'employé';
+      });
     } else {
-        this.utilisateurService.ajouterEmploye(this.nom, this.prenom, this.email, this.motDePasse, this.selectedServices).subscribe(() => {
-            this.successMessage = 'Employé ajouté avec succès';
-            setTimeout(() => {
-              this.successMessage = '';
-            }, 5000);
-            this.getAllEmploye();
-            this.reset();
-        }, (error) => {
-            console.error('Erreur lors de l\'ajout de l\'employé', error);
-            this.successMessage = 'Une erreur s\'est produite lors de l\'ajout de l\'employé';
-        });
+      this.utilisateurService.ajouterEmploye(this.nom, this.prenom, this.email, this.motDePasse, this.selectedServices).subscribe(() => {
+        this.successMessage = 'Employé ajouté avec succès';
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 5000);
+        this.getAllEmploye();
+        this.reset();
+      }, (error) => {
+        console.error('Erreur lors de l\'ajout de l\'employé', error);
+        this.successMessage = 'Une erreur s\'est produite lors de l\'ajout de l\'employé';
+      });
     }
   }
 
@@ -79,9 +79,9 @@ export class PersonnelComponent {
     employe.services.forEach((serviceId: string) => {
       const service = this.listeService.find(s => s._id === serviceId);
       if (service) {
-          this.selectedServices.push(service._id);
+        this.selectedServices.push(service._id);
       }
-  });
+    });
   }
 
   getAllEmploye(): void {
@@ -102,5 +102,6 @@ export class PersonnelComponent {
     this.email = '';
     this.motDePasse = '';
     this.selectedServices = [];
+    this.employeSelectionne = null;
   }
 }

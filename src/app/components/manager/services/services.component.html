@@ -189,7 +189,6 @@
                                 <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Image</th>
                                         <th>Prix</th>
                                         <th>Durée</th>
                                         <th>Commission</th>
@@ -206,7 +205,6 @@
                                 <tbody class="table-border-bottom-0">
                                     <tr *ngFor="let service of services" class="table-warning">
                                         <td>{{ service.nom }}</td>
-                                        <td>{{ service.image }}</td>
                                         <td><span class="badge bg-label-success me-1">{{ service.prix }} Ar</span></td>
                                         <td>
                                             <span class="badge bg-label-primary me-1">{{ service.duree }} minutes</span>
@@ -255,16 +253,20 @@
                                                 aria-describedby="basic-icon-default-fullname2" />
                                         </div>
                                     </div>
-                                    <div class="mb-3" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
-                                      <label class="form-label" for="fileUpload">
-                                        &nbsp;Image
-                                      </label>
-                                      <input type="file" id="fileUpload" class="form-control visually-hidden" (change)="handleFileInput($event)">
-                                      <div class="drop-zone-text" *ngIf="!draggedOver">
-                                        Glissez et déposez une image ici(Max : 10Mo)
-                                      </div>
-                                      <div *ngIf="draggedOver" class="drop-zone-text">Relâchez pour charger l'image</div>
-                                      <img *ngIf="selectedFile" [src]="selectedFile" class="uploaded-image" alt="Uploaded Image">
+                                    <div class="mb-3" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
+                                        (dragleave)="onDragLeave($event)">
+                                        <label class="form-label" for="fileUpload">
+                                            &nbsp;Image
+                                        </label>
+                                        <input type="file" id="fileUpload" class="form-control visually-hidden"
+                                            (change)="handleFileInput($event)">
+                                        <div class="drop-zone-text" *ngIf="!draggedOver">
+                                            Glissez et déposez une image ici (Maximum : 10Mo)
+                                        </div>
+                                        <div *ngIf="draggedOver" class="drop-zone-text">Relâchez pour charger l'image
+                                        </div>
+                                        <img *ngIf="selectedFile" [src]="selectedFile" class="uploaded-image"
+                                            alt="Uploaded Image">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="basic-icon-default-phone">
