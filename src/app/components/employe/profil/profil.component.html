@@ -187,51 +187,52 @@
                         <div class="col-6">
                             <div class="card mb-4">
                                 <div class="card-body">
+                                  <form (ngSubmit)="mettreAJourProfil()">
+                                    <!-- Message de succès -->
+                                    <div *ngIf="messageSuccess" class="alert alert-success" role="alert">
+                                      {{ messageSuccess }}
+                                    </div>
+                                    <!-- Prénom -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="basic-icon-default-fullname">
-                                            &nbsp;Prénom
-                                        </label>
+                                        <label class="form-label" for="prenom">&nbsp;Prénom</label>
                                         <div class="input-group input-group-merge mb-3">
-                                            <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                    class="bx bx-user"></i></span>
-                                            <input type="text" class="form-control" id="basic-icon-default-fullname"
-                                                placeholder="Saisissez votre prénom"
-                                                aria-describedby="basic-icon-default-fullname2" />
+                                            <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
+                                            <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="prenom" [placeholder]="currentUser.prenom"
+                                                placeholder="Saisissez votre prénom" aria-describedby="basic-icon-default-fullname2" />
                                         </div>
+                                        <!-- Nom -->
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon11"><small>NOM</small></span>
-                                            <input type="text" class="form-control" placeholder="Saisissez votre nom"
-                                                aria-label="Username" aria-describedby="basic-addon11" />
+                                            <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom" [placeholder]="currentUser.nom"
+                                                placeholder="Saisissez votre nom" aria-label="Username" aria-describedby="basic-addon11" />
                                         </div>
                                     </div>
+                                    <!-- Email -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="basic-icon-default-email">&nbsp;Email</label>
+                                        <label class="form-label" for="email">&nbsp;Email</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                            <input type="text" id="basic-icon-default-email" class="form-control"
-                                                placeholder="Saisissez votre email"
-                                                aria-describedby="basic-icon-default-email2" />
-                                            <span id="basic-icon-default-email2"
-                                                class="input-group-text">@example.com</span>
+                                            <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" [placeholder]="currentUser.email"
+                                                placeholder="Saisissez votre email" aria-describedby="basic-icon-default-email2" />
                                         </div>
                                     </div>
+                                    <!-- Mot de passe -->
                                     <div class="mb-4">
-                                        <label class="form-label" for="basic-icon-default-phone">
-                                            &nbsp;Mot de passe
-                                        </label>
+                                        <label class="form-label" for="motDePasse">&nbsp;Mot de passe</label>
                                         <div class="input-group input-group-merge">
-                                            <span id="basic-icon-default-phone2" class="input-group-text"><i
-                                                    class="bx bx-key"></i></span>
-                                            <input type="password" id="password" class="form-control"
-                                                placeholder="Saisissez votre mot de passe"
+                                            <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-key"></i></span>
+                                            <input type="password" id="motDePasse" name="motDePasse" [(ngModel)]="motDePasse" class="form-control"
+                                            [placeholder]="currentUser.motDePasse" placeholder="Saisissez votre mot de passe"
                                                 aria-describedby="password" />
-                                            <span class="input-group-text cursor-pointer"><i
-                                                    class="bx bx-hide"></i></span>
+                                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                         </div>
                                     </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary">
+                                    <!-- Bouton Mettre à jour -->
+                                    <button type="submit" class="btn btn-outline-primary">
                                         <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                    </a>
+                                    </button>
+                                </form>
+
                                 </div>
                             </div>
                         </div>

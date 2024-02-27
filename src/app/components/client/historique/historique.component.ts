@@ -14,7 +14,9 @@ export class HistoriqueComponent {
   notificationMessage: string = "";
   notificationDisplay: boolean = false;
 
-  constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService, private route: ActivatedRoute) { }
+  constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService, private route: ActivatedRoute) {
+    this.currentUser = utilisateurService.getCurrentUser();
+  }
 
   ngOnInit(): void {
     this.scriptLoaderService.loadScripts();
