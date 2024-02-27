@@ -184,32 +184,6 @@
           <!-- Contextual Classes -->
           <div class="card mb-4">
             <div class="table-responsive text-nowrap">
-              <!-- <table class="table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Client</th>
-                    <th>Service</th>
-                    <th>Durée</th>
-                    <th>Etat</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                  <tr class="table-warning">
-                    <td>20/12/2021 16:17</td>
-                    <td>RAKOTO Mangatiana</td>
-                    <td>Coupe à sec cours</td>
-                    <td><span class="badge bg-label-primary me-1">15 minutes</span></td>
-                    <td><span class="badge bg-label-danger me-1">Non effectué</span></td>
-                    <td>
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-dark">
-                        <span class="tf-icons bx bx-user-x"></span>&nbsp;&nbsp;Terminé
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
               <table class="table">
                 <thead>
                   <tr>
@@ -232,8 +206,10 @@
                       <span *ngIf="rendezVous.etat === 1" class="badge bg-label-success me-1">Effectué</span>
                     </td>
                     <td>
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-success" *ngIf="rendezVous.etat === 0">
-                        <span class="tf-icons bx bx-user-x"></span>&nbsp;&nbsp;Effectué
+                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-success"
+                        *ngIf="rendezVous.etat === 0"
+                          (click)="effectuerRendezVous(rendezVous._id)">
+                            <span class="tf-icons bx bx-user-x"></span>&nbsp;&nbsp;Effectué
                       </a>
                     </td>
                   </tr>

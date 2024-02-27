@@ -120,4 +120,21 @@ export class UtilisateurService {
     });
     return observable;
   }
+
+  mettreAJourEtatRendezVous(rendezVousId: string): Observable<any> {
+    const observable = this.http.put<any>(`${this.baseUrl}/effectuerendezvous/${rendezVousId}`, {});
+    return observable;
+  }
+
+  ajouterHoraireTravail(utilisateurId: string, horaireTravailDetails: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/utilisateur/${utilisateurId}/horairetravail`, horaireTravailDetails);
+  }
+
+  supprimerHoraireTravail(utilisateurId: string, horaireAchanger: any): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/utilisateur/${utilisateurId}/horairetravail`, { body: horaireAchanger });
+  }
+
+  getHorairesTravail(jourSemaine: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/horaires-travail/${jourSemaine}`);
+  }
 }

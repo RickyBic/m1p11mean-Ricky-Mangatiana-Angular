@@ -21,6 +21,10 @@ export class RendezvousComponent {
     this.utilisateurService.user.subscribe(user => {
       this.utilisateurConnecte = user;
     });
+    this.getRendezVousByEmploye();
+  }
+
+  getRendezVousByEmploye() {
     this.utilisateurService.getRendezVousByEmploye(this.utilisateurConnecte._id).subscribe(data => {
       this.rendezVous = data;
     });
@@ -28,6 +32,18 @@ export class RendezvousComponent {
 
   deconnexion() {
     this.utilisateurService.deconnexion();
+  }
+
+  effectuerRendezVous(rendezVousId: string) {
+    this.utilisateurService.mettreAJourEtatRendezVous(rendezVousId).subscribe(
+      (data) => {
+        console.log('État du rendez-vous mis à jour avec succès', data);
+        this.getRendezVousByEmploye();
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour de l\'état du rendez-vous', error);
+      }
+    );
   }
 
 }
