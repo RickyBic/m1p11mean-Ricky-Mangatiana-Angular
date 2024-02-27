@@ -20,6 +20,7 @@ import { TachesComponent } from './components/employe/taches/taches.component';
 import { StatistiquesComponent } from './components/manager/statistiques/statistiques.component';
 import { ServicesComponent } from './components/manager/services/services.component';
 import { DepensesComponent } from './components/manager/depenses/depenses.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DepensesComponent } from './components/manager/depenses/depenses.compon
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

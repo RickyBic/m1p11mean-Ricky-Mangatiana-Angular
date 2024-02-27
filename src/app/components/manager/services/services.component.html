@@ -255,6 +255,17 @@
                                                 aria-describedby="basic-icon-default-fullname2" />
                                         </div>
                                     </div>
+                                    <div class="mb-3" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+                                      <label class="form-label" for="fileUpload">
+                                        &nbsp;Image
+                                      </label>
+                                      <input type="file" id="fileUpload" class="form-control visually-hidden" (change)="handleFileInput($event)">
+                                      <div class="drop-zone-text" *ngIf="!draggedOver">
+                                        Glissez et déposez une image ici(Max : 10Mo)
+                                      </div>
+                                      <div *ngIf="draggedOver" class="drop-zone-text">Relâchez pour charger l'image</div>
+                                      <img *ngIf="selectedFile" [src]="selectedFile" class="uploaded-image" alt="Uploaded Image">
+                                    </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="basic-icon-default-phone">
                                             &nbsp;Prix
@@ -264,6 +275,7 @@
                                                     class="bx bx-dollar-circle"></i></span>
                                             <input [(ngModel)]="prix" type="number" id="prix" class="form-control"
                                                 placeholder="0.0" />
+
                                             <span id="basic-icon-default-email2" class="input-group-text">Ar</span>
                                         </div>
                                     </div>

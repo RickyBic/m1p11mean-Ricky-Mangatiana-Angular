@@ -20,6 +20,9 @@ export class ServicesComponent {
   commission: number = 0;
   @ViewChild('closeButton') closeButton: ElementRef;
 
+  selectedFile: string | null = null;
+  draggedOver = false;
+
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
     this.readService();
@@ -33,12 +36,12 @@ export class ServicesComponent {
   deconnexion() {
     this.utilisateurService.deconnexion();
   }
-
-  closeModal() {
+  
+   closeModal() {
     // Close the modal
     this.closeButton.nativeElement.click();
   }
-
+  
   createService() {
     this.commission /= 100; // 0.0 [MongoDB]
     if (this.serviceID == '') {
@@ -49,14 +52,47 @@ export class ServicesComponent {
         "commission": this.commission
       };
       this.http.post(this.baseURL + "/service", bodyData).subscribe((resultData: any) => {
-        this.readService();
+         this.readService();
       });
-    }
-    else {
+    } else {
       this.updateService();
     }
     this.closeModal();
   }
+
+  handleFileInput(event: any): void {
+    const file = event.target.files[0];
+    this.displayImage(file);
+  }
+
+  displayImage(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedFile = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.draggedOver = false;
+    const file = event!.dataTransfer!.files[0];
+    this.displayImage(file);
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.draggedOver = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.draggedOver = false;
+  }
+       
 
   readService() {
     this.http.get(this.baseURL + "/services")
@@ -71,6 +107,7 @@ export class ServicesComponent {
     this.prix = data.prix;
     this.duree = data.duree;
     this.commission = data.commission * 100;
+    this.selectedFile = data.image
   }
 
   updateService() {
@@ -78,7 +115,8 @@ export class ServicesComponent {
       "nom": this.nom,
       "prix": this.prix,
       "duree": this.duree,
-      "commission": this.commission
+      "commission": this.commission,
+      "image": this.selectedFile
     };
     this.http.put(this.baseURL + "/services/" + this.serviceID, bodyData).subscribe((resultData: any) => {
       this.readService();
@@ -97,6 +135,7 @@ export class ServicesComponent {
     this.prix = 0;
     this.duree = 0;
     this.commission = 0;
+    this.selectedFile = null;
   }
 
 }

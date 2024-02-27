@@ -200,29 +200,13 @@
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  <tr class="table-info">
-                    <td><span class="badge bg-label-primary me-1">65cc7cd185c191dcaf695254</span></td>
-                    <td>RAKOTONIAINA</td>
-                    <td>Fitia</td>
-                    <td>fitia@gmail.com</td>
+                  <tr class="table-info" *ngFor="let employe of listeEmploye">
+                    <td><span class="badge bg-label-primary me-1">{{ employe._id }}</span></td>
+                    <td>{{ employe.nom }}</td>
+                    <td>{{ employe.prenom }}</td>
+                    <td>{{ employe.email }}</td>
                     <td>
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                        data-bs-target="#basicModal">
-                        <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
-                      </a>
-                      &nbsp;&nbsp;
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
-                        <span class="tf-icons bx bx-user-minus"></span>&nbsp;&nbsp;Enlever
-                      </a>
-                    </td>
-                  </tr>
-                  <tr class="table-info">
-                    <td><span class="badge bg-label-primary me-1">65cc7cd185c191dcaf695254</span></td>
-                    <td>RAKOTOMALALA</td>
-                    <td>Faniry</td>
-                    <td>faniry@gmail.com</td>
-                    <td>
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" (click)="selectionnerEmploye(employe)"
                         data-bs-target="#basicModal">
                         <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
                       </a>
@@ -234,6 +218,7 @@
                   </tr>
                 </tbody>
               </table>
+
             </div>
           </div>
           <!--/ Contextual Classes -->
@@ -246,6 +231,9 @@
                   <h5 class="modal-title" id="exampleModalLabel1">Insertion&nbsp;&nbsp;▪️&nbsp;&nbsp;Modification</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div *ngIf="successMessage" class="alert alert-success">
+                  {{ successMessage }}
+                </div>
                 <div class="modal-body">
                   <div class="mb-3">
                     <label class="form-label" for="basic-icon-default-fullname">
@@ -254,11 +242,11 @@
                     <div class="input-group input-group-merge mb-3">
                       <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                       <input type="text" class="form-control" id="basic-icon-default-fullname"
-                        placeholder="Saisissez son prénom" aria-describedby="basic-icon-default-fullname2" />
+                        placeholder="Saisissez son prénom" name="prenom" [(ngModel)]="prenom" aria-describedby="basic-icon-default-fullname2" />
                     </div>
                     <div class="input-group">
                       <span class="input-group-text" id="basic-addon11"><small>NOM</small></span>
-                      <input type="text" class="form-control" placeholder="Saisissez son nom" aria-label="Username"
+                      <input type="text" class="form-control" name="nom" [(ngModel)]="nom" placeholder="Saisissez son nom" aria-label="Username"
                         aria-describedby="basic-addon11" />
                     </div>
                   </div>
@@ -266,9 +254,8 @@
                     <label class="form-label" for="basic-icon-default-email">&nbsp;Email</label>
                     <div class="input-group input-group-merge">
                       <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                      <input type="text" id="basic-icon-default-email" class="form-control"
+                      <input type="text" id="basic-icon-default-email" class="form-control" name="email" [(ngModel)]="email"
                         placeholder="Saisissez son email" aria-describedby="basic-icon-default-email2" />
-                      <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
                     </div>
                   </div>
                   <div class="mb-3">
@@ -277,22 +264,20 @@
                     </label>
                     <div class="input-group input-group-merge">
                       <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-key"></i></span>
-                      <input type="text" id="password" class="form-control" placeholder="Saisissez son mot de passe"
+                      <input type="text" id="password" class="form-control" placeholder="Saisissez son mot de passe" name="motDePasse" [(ngModel)]="motDePasse"
                         aria-describedby="password" />
                     </div>
                   </div>
                   <div class="mb-4">
                     <label for="exampleFormControlSelect2" class="form-label">Services</label>
-                    <select multiple class="form-select" id="exampleFormControlSelect2"
-                      aria-label="Multiple select example">
-                      <option value="1">🌐 Coupe à sec cours</option>
-                      <option value="2">🌐 Entrée hammam simple</option>
+                    <select multiple class="form-select" id="exampleFormControlSelect2" aria-label="Multiple select example" [(ngModel)]="selectedServices">
+                      <option *ngFor="let service of listeService" [ngValue]="service._id">{{ service.nom }}</option>
                     </select>
                   </div>
-                  <a href="javascript:void(0)" class="btn btn-outline-success">
+                  <a href="javascript:void(0)" class="btn btn-outline-success" (click)="ajouterEmploye()">
                     <span class="tf-icons bx bx-save"></span>&nbsp;&nbsp;Enregistrer
                   </a>&nbsp;&nbsp;
-                  <a href="javascript:void(0)" class="btn btn-outline-warning">
+                  <a href="javascript:void(0)" class="btn btn-outline-warning" (click)="reset()">
                     <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Rénitialiser
                   </a>
                 </div>

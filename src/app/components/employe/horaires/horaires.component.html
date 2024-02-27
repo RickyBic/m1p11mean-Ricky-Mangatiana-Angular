@@ -183,8 +183,8 @@
                     <!--/ Breadcrumb -->
 
                     <!-- Custom select -->
-                    <div class="row">
-                        <div class="col-5">
+                    <!-- <div class="row">
+                         <div class="col-5">
                             <div class="card mb-4">
                                 <h5 class="card-header"><small class="text-muted">1.</small>&nbsp;&nbsp;Lundi
                                 </h5>
@@ -202,104 +202,31 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-5">
-                            <div class="card mb-4">
-                                <h5 class="card-header"><small class="text-muted">2.</small>&nbsp;&nbsp;Mardi</h5>
+                    </div>-->
+                        <div class="row" *ngIf="horairesTravail">
+                          <div class="row">
+                            <div class="col-5" *ngFor="let horaire of horairesTravail">
+                              <div class="card mb-4">
+                                <h5 class="card-header">
+                                  <small class="text-muted">{{ horaire.jourSemaine }}.</small>&nbsp;&nbsp;{{ jourSemaine(horaire.jourSemaine) }}
+                                </h5>
                                 <div class="card-body demo-vertical-spacing demo-only-element">
-                                    <div class="input-group">
-                                        <label class="input-group-text" for="inputGroupSelect01">Horaire</label>
-                                        <select class="form-select" id="inputGroupSelect01">
-                                            <option value="1">9h à 17h</option>
-                                            <option value="2">10h à 18h</option>
-                                        </select>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary">
-                                        <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                    </a>
+                                  <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupSelect01">Horaire</label>
+                                    <select class="form-select" id="inputGroupSelect01">
+                                      <option value="1">{{ horaire.heureDebut }}h à {{ horaire.heureFin }}h</option>
+                                    </select>
+                                  </div>
+                                  <a href="javascript:void(0)" class="btn btn-outline-primary">
+                                    <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
+                                  </a>
                                 </div>
+                              </div>
                             </div>
-                        </div>
-                    </div>
+                          </div>
 
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="card mb-4">
-                                <h5 class="card-header"><small class="text-muted">3.</small>&nbsp;&nbsp;Mercredi</h5>
-                                <div class="card-body demo-vertical-spacing demo-only-element">
-                                    <div class="input-group">
-                                        <label class="input-group-text" for="inputGroupSelect01">Horaire</label>
-                                        <select class="form-select" id="inputGroupSelect01">
-                                            <option value="1">9h à 17h</option>
-                                            <option value="2">10h à 18h</option>
-                                        </select>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary">
-                                        <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                    </a>
-                                </div>
-                            </div>
                         </div>
 
-                        <div class="col-5">
-                            <div class="card mb-4">
-                                <h5 class="card-header"><small class="text-muted">4.</small>&nbsp;&nbsp;Jeudi</h5>
-                                <div class="card-body demo-vertical-spacing demo-only-element">
-                                    <div class="input-group">
-                                        <label class="input-group-text" for="inputGroupSelect01">Horaire</label>
-                                        <select class="form-select" id="inputGroupSelect01">
-                                            <option value="1">9h à 17h</option>
-                                            <option value="2">10h à 18h</option>
-                                        </select>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary">
-                                        <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="card mb-4">
-                                <h5 class="card-header"><small class="text-muted">5.</small>&nbsp;&nbsp;Vendredi</h5>
-                                <div class="card-body demo-vertical-spacing demo-only-element">
-                                    <div class="input-group">
-                                        <label class="input-group-text" for="inputGroupSelect01">Horaire</label>
-                                        <select class="form-select" id="inputGroupSelect01">
-                                            <option value="1">9h à 17h</option>
-                                            <option value="2">10h à 18h</option>
-                                        </select>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary">
-                                        <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-5">
-                            <div class="card mb-4">
-                                <h5 class="card-header"><small class="text-muted">6.</small>&nbsp;&nbsp;Samedi</h5>
-                                <div class="card-body demo-vertical-spacing demo-only-element">
-                                    <div class="input-group">
-                                        <label class="input-group-text" for="inputGroupSelect01">Horaire</label>
-                                        <select class="form-select" id="inputGroupSelect01">
-                                            <option value="1">9h à 17h</option>
-                                            <option value="2">10h à 18h</option>
-                                        </select>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary">
-                                        <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
                 <!-- / Content -->
 
                 <div class="content-backdrop fade"></div>
