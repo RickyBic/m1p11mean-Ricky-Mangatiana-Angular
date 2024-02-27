@@ -203,37 +203,30 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr class="table-success">
-                                        <td class="col-3"><span class="badge bg-label-primary me-1">Coupe à sec
-                                                cours</span></td>
-                                        <td class="col-4">
-                                            <div class="input-group input-group-merge">
-                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                        class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
-                                                </select>
-                                            </div>
+                                    <tr *ngFor="let preference of currentUser.preferences" class="table-success">
+                                        <td class="col-3">
+                                            <span class="badge bg-label-primary me-1">
+                                                {{ preference.servicePrefere.nom }}
+                                            </span>
                                         </td>
+                                        <td class="col-4">⭐ {{ preference.employePrefere.nom }} {{
+                                            preference.employePrefere.prenom }} ⭐</td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary">
-                                                <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Mettre à jour
-                                            </a>
-                                            &nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger"
+                                                (click)="supprimer(preference)">
                                                 <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
+                                                préférence
                                             </a>
                                         </td>
                                     </tr>
                                     <tr class="table-success">
                                         <td class="col-3">
                                             <div class="input-group input-group-merge">
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>Coupe à sec cours</option>
-                                                    <option>Entrée hammam simple</option>
+                                                <select [(ngModel)]="serviceToAddId" class="form-select"
+                                                    id="exampleFormControlSelect1" aria-label="Default select example"
+                                                    (change)="onServiceToAddIdChange()">
+                                                    <option *ngFor="let service of services" [value]="service._id">{{
+                                                        service.nom }}</option>
                                                 </select>
                                             </div>
                                         </td>
@@ -241,16 +234,20 @@
                                             <div class="input-group input-group-merge">
                                                 <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                                         class="bx bx-star"></i></span>
-                                                <select class="form-select" id="exampleFormControlSelect1"
-                                                    aria-label="Default select example">
-                                                    <option>RAKOTONIAINA Fitia</option>
-                                                    <option>RAKOTOMALALA Faniry</option>
+                                                <select [(ngModel)]="employeToAddId" class="form-select"
+                                                    id="exampleFormControlSelect1" aria-label="Default select example">
+                                                    <option
+                                                        *ngFor="let employe of getEmployesByServiceId(serviceToAddId)"
+                                                        [value]="employe._id">{{ employe.nom }} {{ employe.prenom }}
+                                                    </option>
                                                 </select>
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning">
-                                                <span class="tf-icons bx bx-plus-circle"></span>&nbsp;&nbsp;Ajouter
+                                            <a href="javascript:void(0)" (click)="ajouter()"
+                                                class="btn btn-sm btn-outline-warning">
+                                                <span class="tf-icons bx bx-user-plus"></span>&nbsp;&nbsp;Ajouter
+                                                préférence
                                             </a>
                                         </td>
                                     </tr>

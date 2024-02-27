@@ -32,8 +32,7 @@ export class PriserendezvousComponent {
 
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient, private router: Router) {
     this.currentUser = utilisateurService.getCurrentUser();
-    this.getServices();
-    this.getEmployes();
+    this.getServicesAndEmployes();
   }
 
   ngOnInit(): void {
@@ -44,17 +43,14 @@ export class PriserendezvousComponent {
     this.utilisateurService.deconnexion();
   }
 
-  getServices() {
+  getServicesAndEmployes() {
     this.http.get<Service[]>(this.baseURL + "/services")
-      .subscribe((resultData) => {
-        this.services = resultData;
-      });
-  }
-
-  getEmployes() {
-    this.http.get<Utilisateur[]>(this.baseURL + "/listeEmploye")
-      .subscribe((resultData) => {
-        this.employes = resultData;
+      .subscribe((services) => {
+        this.http.get<Utilisateur[]>(this.baseURL + "/listeEmploye")
+          .subscribe((employes) => {
+            this.employes = employes;
+            this.services = services.filter(service => this.getEmployesByServiceId(service._id).length > 0);
+          });
       });
   }
 
@@ -74,14 +70,25 @@ export class PriserendezvousComponent {
     currentDate.setHours(currentDate.getHours() + 3); // UTC+3 Madagascar
     currentDate.setMinutes(currentDate.getMinutes() + 60);
     this.dateHeure = currentDate.toISOString().slice(0, 16);
-    service.employe_id = this.getEmployesByServiceId(service._id)[0]._id;
+    const employePrefere_id = this.getEmployePrefere(service._id);
+    employePrefere_id ? service.employe_id = employePrefere_id : service.employe_id = this.getEmployesByServiceId(service._id)[0]._id; // Employé préféré ou Par défaut
     this.selectedServices.push(service);
     this.serviceToAddId = this.services[0]._id;
     this.onServiceToAddIdChange();
   }
 
   onServiceToAddIdChange() {
-    this.employeToAddId = this.getEmployesByServiceId(this.serviceToAddId)[0]._id;
+    const employePrefere_id = this.getEmployePrefere(this.serviceToAddId);
+    employePrefere_id ? this.employeToAddId = employePrefere_id : this.employeToAddId = this.getEmployesByServiceId(this.serviceToAddId)[0]._id;
+  }
+
+  getEmployePrefere(service_id: string): string | null {
+    for (const preference of this.currentUser.preferences) {
+      if (preference.servicePrefere._id === service_id) {
+        return preference.employePrefere._id;
+      }
+    }
+    return null;
   }
 
   supprimer(serviceToRemove: Service) {

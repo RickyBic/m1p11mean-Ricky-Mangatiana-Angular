@@ -68,14 +68,14 @@
                     </a>
                 </li>
 
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a routerLink="/services" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-cut"></i>
                         <div data-i18n="Basic">Services</div>
                     </a>
                 </li>
 
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a routerLink="/depenses" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-dollar"></i>
                         <div data-i18n="Basic">Dépenses</div>
@@ -173,7 +173,7 @@
                             <!-- Custom style1 Breadcrumb -->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1">
-                                    <li class="breadcrumb-item">Services</li>
+                                    <li class="breadcrumb-item">Dépenses</li>
                                     <li class="breadcrumb-item">Gestion</li>
                                 </ol>
                             </nav>
@@ -189,40 +189,47 @@
                                 <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Image</th>
-                                        <th>Prix</th>
-                                        <th>Durée</th>
-                                        <th>Commission</th>
-                                        <th>
-                                            <a href="javascript:void(0)" (click)="resetForm()"
-                                                class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
-                                                data-bs-target="#basicModal">
-                                                <span class="tf-icons bx bx-user-plus"></span>&nbsp;&nbsp;Ajouter un
-                                                service
-                                            </a>
-                                        </th>
+                                        <th>Montant</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr *ngFor="let service of services" class="table-warning">
-                                        <td>{{ service.nom }}</td>
-                                        <td>{{ service.image }}</td>
-                                        <td><span class="badge bg-label-success me-1">{{ service.prix }} Ar</span></td>
-                                        <td>
-                                            <span class="badge bg-label-primary me-1">{{ service.duree }} minutes</span>
+                                    <tr *ngFor="let depense of depenses" class="table-danger">
+                                        <td><span class="badge bg-label-warning me-1">{{ depense.nom }}</span></td>
+                                        <td><span class="badge bg-label-primary me-1">{{ depense.montant }} Ar /
+                                                mois</span>
                                         </td>
-                                        <td><span class="badge bg-label-danger me-1">{{ service.commission * 100
-                                                }}%</span></td>
                                         <td>
-                                            <a href="javascript:void(0)" (click)="setUpdateService(service)"
-                                                class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                                data-bs-target="#basicModal">
-                                                <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
-                                            </a>
-                                            &nbsp;&nbsp;
-                                            <a href="javascript:void(0)" (click)="deleteService(service)"
+                                            <a href="javascript:void(0)" (click)="supprimer(depense._id)"
                                                 class="btn btn-sm btn-outline-danger">
                                                 <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
+                                                dépense
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-danger">
+                                        <td class="col-3">
+                                            <div class="input-group input-group-merge">
+                                                <input [(ngModel)]="nom" type="text" class="form-control" id="nom"
+                                                    placeholder="Saisissez le nom"
+                                                    aria-describedby="basic-icon-default-fullname2" />
+                                            </div>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="input-group input-group-merge">
+                                                <span id="basic-icon-default-phone2" class="input-group-text"><i
+                                                        class="bx bx-dollar-circle"></i></span>
+                                                <input [(ngModel)]="montant" type="number" id="montant"
+                                                    class="form-control" placeholder="0.0" />
+                                                <span id="basic-icon-default-email2" class="input-group-text">Ar /
+                                                    mois</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" (click)="ajouter()"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <span class="tf-icons bx bx-list-plus"></span>&nbsp;&nbsp;Ajouter
+                                                dépense
                                             </a>
                                         </td>
                                     </tr>
@@ -231,89 +238,6 @@
                         </div>
                     </div>
                     <!--/ Contextual Classes -->
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel1">
-                                        Insertion&nbsp;&nbsp;▪️&nbsp;&nbsp;Modification</h5>
-                                    <button #closeButton type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-icon-default-fullname">
-                                            &nbsp;Nom
-                                        </label>
-                                        <div class="input-group input-group-merge mb-3">
-                                            <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                    class="bx bx-cut"></i></span>
-                                            <input [(ngModel)]="nom" type="text" class="form-control" id="nom"
-                                                placeholder="Saisissez le nom"
-                                                aria-describedby="basic-icon-default-fullname2" />
-                                        </div>
-                                    </div>
-                                    <div class="mb-3" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
-                                      <label class="form-label" for="fileUpload">
-                                        &nbsp;Image
-                                      </label>
-                                      <input type="file" id="fileUpload" class="form-control visually-hidden" (change)="handleFileInput($event)">
-                                      <div class="drop-zone-text" *ngIf="!draggedOver">
-                                        Glissez et déposez une image ici(Max : 10Mo)
-                                      </div>
-                                      <div *ngIf="draggedOver" class="drop-zone-text">Relâchez pour charger l'image</div>
-                                      <img *ngIf="selectedFile" [src]="selectedFile" class="uploaded-image" alt="Uploaded Image">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-icon-default-phone">
-                                            &nbsp;Prix
-                                        </label>
-                                        <div class="input-group input-group-merge">
-                                            <span id="basic-icon-default-phone2" class="input-group-text"><i
-                                                    class="bx bx-dollar-circle"></i></span>
-                                            <input [(ngModel)]="prix" type="number" id="prix" class="form-control"
-                                                placeholder="0.0" />
-
-                                            <span id="basic-icon-default-email2" class="input-group-text">Ar</span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-icon-default-phone">
-                                            &nbsp;Durée
-                                        </label>
-                                        <div class="input-group input-group-merge">
-                                            <span id="basic-icon-default-phone2" class="input-group-text"><i
-                                                    class="bx bx-timer"></i></span>
-                                            <input [(ngModel)]="duree" type="number" id="duree" class="form-control"
-                                                placeholder="0" />
-                                            <span id="basic-icon-default-email2" class="input-group-text">mn</span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-icon-default-phone">
-                                            &nbsp;Commission
-                                        </label>
-                                        <div class="input-group input-group-merge">
-                                            <span id="basic-icon-default-phone2" class="input-group-text"><i
-                                                    class="bx bx-group"></i></span>
-                                            <input [(ngModel)]="commission" type="number" id="commission"
-                                                class="form-control" placeholder="0" />
-                                            <span id="basic-icon-default-email2" class="input-group-text">%</span>
-                                        </div>
-                                    </div>
-                                    <a href="javascript:void(0)" (click)="createService()"
-                                        class="btn btn-outline-success">
-                                        <span class="tf-icons bx bx-save"></span>&nbsp;&nbsp;Enregistrer
-                                    </a>&nbsp;&nbsp;
-                                    <a href="javascript:void(0)" (click)="closeModal()" class="btn btn-outline-danger">
-                                        <span class="tf-icons bx bx-log-out"></span>&nbsp;&nbsp;Retour
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
                 <!-- / Content -->

@@ -13,6 +13,7 @@ import { TachesComponent } from './components/employe/taches/taches.component';
 import { PersonnelComponent } from './components/manager/personnel/personnel.component';
 import { StatistiquesComponent } from './components/manager/statistiques/statistiques.component';
 import { ServicesComponent } from './components/manager/services/services.component';
+import { DepensesComponent } from './components/manager/depenses/depenses.component';
 
 const routes: Routes = [
   /*----------[LOGIN]----------*/
@@ -31,6 +32,7 @@ const routes: Routes = [
   /*----------[MANAGER]----------*/
   { path: 'personnel', component: PersonnelComponent },
   { path: 'services', component: ServicesComponent },
+  { path: 'depenses', component: DepensesComponent },
   { path: 'statistiques', component: StatistiquesComponent },
   /*----------[INDEX]----------*/
   { path: '', redirectTo: 'se-connecter', pathMatch: 'full' }

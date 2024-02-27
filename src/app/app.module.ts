@@ -19,6 +19,7 @@ import { HorairesComponent } from './components/employe/horaires/horaires.compon
 import { TachesComponent } from './components/employe/taches/taches.component';
 import { StatistiquesComponent } from './components/manager/statistiques/statistiques.component';
 import { ServicesComponent } from './components/manager/services/services.component';
+import { DepensesComponent } from './components/manager/depenses/depenses.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -36,7 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HorairesComponent,
     TachesComponent,
     StatistiquesComponent,
-    ServicesComponent
+    ServicesComponent,
+    DepensesComponent
   ],
   imports: [
     BrowserModule,
