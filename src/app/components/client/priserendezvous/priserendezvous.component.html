@@ -202,8 +202,9 @@
                         <div class="row mb-5">
                             <div *ngFor="let service of services" class="col-md-6 col-lg-4 mb-3">
                                 <div class="card h-100">
-                                    <img class="card-img-top" src="../assets/img/elements/{{ service.image }}"
-                                        alt="Card image cap" />
+                                     <!-- <img class="card-img-top" src="../assets/img/elements/{{ service.image }}"
+                                        alt="Card image cap" /> -->
+                                        <img class="card-img-top" [src]="service.image" alt="Card image cap" />
                                     <div class="card-body">
                                         <h5 class="card-title">{{ service.nom }}</h5>
                                         <p class="card-text">

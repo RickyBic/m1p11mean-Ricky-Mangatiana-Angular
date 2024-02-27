@@ -19,6 +19,9 @@ export class ServicesComponent {
   duree: number = 0;
   commission: number = 0;
 
+  selectedFile: string | null = null;
+  draggedOver = false;
+
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
     this.readService();
@@ -32,33 +35,65 @@ export class ServicesComponent {
     this.utilisateurService.deconnexion();
   }
 
+  handleFileInput(event: any): void {
+    const file = event.target.files[0];
+    this.displayImage(file);
+  }
+
+  displayImage(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedFile = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.draggedOver = false;
+    const file = event!.dataTransfer!.files[0];
+    this.displayImage(file);
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.draggedOver = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.draggedOver = false;
+  }
+
   createService() {
-    if (this.serviceID == '') {
-      let bodyData = {
-        "nom": this.nom,
-        "prix": this.prix,
-        "duree": this.duree,
-        "commssion": this.commission
+    if (this.serviceID === '') {
+      const serviceData = {
+        nom: this.nom,
+        prix: this.prix,
+        duree: this.duree,
+        commission: this.commission / 100,
+        image: this.selectedFile
       };
-      this.http.post(this.baseURL + "/service", bodyData).subscribe((resultData: any) => {
+      this.http.post(this.baseURL + "/service", serviceData).subscribe((resultData: any) => {
         console.log(resultData);
         alert(resultData.message);
         this.nom = "";
         this.prix = 0;
         this.duree = 0;
         this.commission = 0;
+        this.selectedFile = null;
         this.readService();
       });
-    }
-    else {
+    } else {
       this.updateService();
     }
   }
 
   readService() {
-    this.http.get(this.baseURL + "/services")
-      .subscribe((resultData: any) => {
-        console.log(resultData);
+    this.http.get(this.baseURL + "/services").subscribe((resultData: any) => {
         this.services = resultData;
       });
   }
@@ -69,6 +104,7 @@ export class ServicesComponent {
     this.prix = data.prix;
     this.duree = data.duree;
     this.commission = data.commission;
+    this.selectedFile = data.image
   }
 
   updateService() {
@@ -77,6 +113,7 @@ export class ServicesComponent {
       "prix": this.prix,
       "duree": this.duree,
       "commission": this.commission,
+      "image": this.selectedFile
     };
     this.http.put(this.baseURL + "/services/" + this.serviceID, bodyData).subscribe((resultData: any) => {
       console.log(resultData);
@@ -99,6 +136,7 @@ export class ServicesComponent {
     this.prix = 0;
     this.duree = 0;
     this.commission = 0;
+    this.selectedFile = null;
   }
 
 }

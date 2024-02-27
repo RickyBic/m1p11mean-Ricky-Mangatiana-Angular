@@ -1,0 +1,33 @@
+.thumbnail-image {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.drop-zone-text {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.drop-zone-text:hover {
+  background-color: #f0f0f0;
+}
+
+.uploaded-image {
+  max-width: 100%;
+  max-height: 200px;
+  margin-top: 10px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+

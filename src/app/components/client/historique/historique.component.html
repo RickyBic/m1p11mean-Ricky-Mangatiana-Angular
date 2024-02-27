@@ -207,6 +207,7 @@
           <!-- Contextual Classes -->
           <div class="card mb-4">
             <div class="table-responsive text-nowrap">
+              <!-- eto-->
               <table class="table">
                 <thead>
                   <tr>
@@ -218,22 +219,20 @@
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  <tr class="table-warning">
-                    <td>20/12/2021 16:17</td>
-                    <td>Coupe à sec cours</td>
-                    <td>RAKOTONIAINA Fitia</td>
-                    <td><span class="badge bg-label-primary me-1">15 minutes</span></td>
-                    <td><span class="badge bg-label-danger me-1">Non effectué</span></td>
-                  </tr>
-                  <tr class="table-warning">
-                    <td>21/12/2021 10:00</td>
-                    <td>Entrée hammam simple</td>
-                    <td>RAKOTONIAINA Fitia</td>
-                    <td><span class="badge bg-label-primary me-1">45 minutes</span></td>
-                    <td><span class="badge bg-label-success me-1">Effectué</span></td>
+                  <tr *ngFor="let rendezVous of rendezVous">
+                    <td>{{ rendezVous.date | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td>{{ rendezVous.service.nom }}</td>
+                    <td>{{ rendezVous.employe.nom }} {{ rendezVous.employe.prenom }}</td>
+                    <td><span class="badge bg-label-primary me-1">{{ rendezVous.service.duree }} minutes</span></td>
+                    <td>
+                      <span *ngIf="rendezVous.etat === 0" class="badge bg-label-danger me-1">Non effectué</span>
+                      <span *ngIf="rendezVous.etat === 1" class="badge bg-label-success me-1">Effectué</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
+
+              <!-- eto-->
             </div>
           </div>
           <!--/ Contextual Classes -->

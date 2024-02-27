@@ -16,6 +16,9 @@ export class UtilisateurService {
   employeSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   employes: Observable<any[]> = this.employeSubject.asObservable();
 
+  servicesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  services: Observable<any[]> = this.servicesSubject.asObservable();
+
   constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, motDePasse: string): Observable<any> {
@@ -51,21 +54,16 @@ export class UtilisateurService {
     return this.http.post<any>(`${this.baseUrl}/nouveauClient`, newClient);
   }
 
-  ajouterEmploye(nom: string, prenom: string, email: string, motDePasse: string): void {
+  ajouterEmploye(nom: string, prenom: string, email: string, motDePasse: string, selectedServices: string[]): Observable<any> {
     const newEmp = {
-      nom,
-      prenom,
-      email,
-      motDePasse,
-      profil: 1
+        nom,
+        prenom,
+        email,
+        motDePasse,
+        services: selectedServices,
+        profil: 1
     };
-    this.http.post<any>(`${this.baseUrl}/nouveauEmploye`, newEmp).subscribe((response) => {
-      console.log('Employé ajouté avec succès', response);
-      this.getAllEmploye();
-    },
-      (error) => {
-        console.error('Erreur lors de l\'ajout de l\'employé', error);
-      });
+    return this.http.post<any>(`${this.baseUrl}/nouveauEmploye`, newEmp);
   }
 
   getAllEmploye(): Observable<any> {
@@ -90,7 +88,36 @@ export class UtilisateurService {
     return this.http.get<any[]>(`${this.baseUrl}/rendezvous/client/${clientId}`);
   }
 
-  updateHoraireTravail(userId: string, horaireId: string, nouvelHoraire: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/utilisateur/${userId}/horairetravail/${horaireId}`, nouvelHoraire);
+  modifierUtilisateur(id: string, nom: string, prenom: string, email: string, motDePasse: string): Observable<any> {
+    const clientToModif = {
+      nom,
+      prenom,
+      email,
+      motDePasse,
+    };
+    const utilisateurUpdated =  this.http.put<any>(`${this.baseUrl}/modifyEmploye/${id}`, clientToModif);
+    this.login(email,motDePasse);
+    this.getCurrentUser();
+    return utilisateurUpdated;
+  }
+
+  modifierUtilisateurEtService(id: string, nom: string, prenom: string, email: string, motDePasse: string,services: string[]): Observable<any> {
+    const clientToModif = {
+      nom,
+      prenom,
+      email,
+      motDePasse,
+      services
+    };
+    const utilisateurUpdated =  this.http.put<any>(`${this.baseUrl}/modifyEmploye/${id}`, clientToModif);
+    return utilisateurUpdated;
+  }
+
+  getAllService(): Observable<any> {
+    const observable = this.http.get<any[]>(`${this.baseUrl}/services`);
+    observable.subscribe((service) => {
+      this.servicesSubject.next(service);
+    });
+    return observable;
   }
 }

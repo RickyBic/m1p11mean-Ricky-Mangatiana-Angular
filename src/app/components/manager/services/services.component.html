@@ -196,35 +196,17 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr class="table-warning">
-                                        <td>Coupe à sec cours</td>
-                                        <td>coiffure.png</td>
-                                        <td><span class="badge bg-label-success me-1">15000 Ar</span></td>
+                                    <tr class="table-warning" *ngFor="let service of services">
+                                        <td>{{ service.nom }}</td>
+                                        <!-- <td>{{ service.image }}</td> -->
+                                        <td><img [src]="service.image" alt="{{ service.nom }}" class="thumbnail-image"></td>
+                                        <td><span class="badge bg-label-success me-1">{{ service.prix }}</span></td>
                                         <td>
-                                            <span class="badge bg-label-primary me-1">15 minutes</span>
+                                            <span class="badge bg-label-primary me-1">{{ service.duree }}</span>
                                         </td>
-                                        <td><span class="badge bg-label-danger me-1">20%</span></td>
+                                        <td><span class="badge bg-label-danger me-1">{{ service.commission }}</span></td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary"
-                                                data-bs-toggle="modal" data-bs-target="#basicModal">
-                                                <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
-                                            </a>
-                                            &nbsp;&nbsp;
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger">
-                                                <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-warning">
-                                        <td>Entrée hammam simple</td>
-                                        <td>hammam.png</td>
-                                        <td><span class="badge bg-label-success me-1">140000 Ar</span></td>
-                                        <td>
-                                            <span class="badge bg-label-primary me-1">45 minutes</span>
-                                        </td>
-                                        <td><span class="badge bg-label-danger me-1">30%</span></td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary"
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-primary" (click)="setUpdateService(service)"
                                                 data-bs-toggle="modal" data-bs-target="#basicModal">
                                                 <span class="tf-icons bx bx-edit"></span>&nbsp;&nbsp;Modifier
                                             </a>
@@ -258,10 +240,21 @@
                                         <div class="input-group input-group-merge mb-3">
                                             <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                                     class="bx bx-cut"></i></span>
-                                            <input type="text" class="form-control" id="basic-icon-default-fullname"
+                                            <input type="text" class="form-control" id="basic-icon-default-fullname" name="nom" [(ngModel)]="nom"
                                                 placeholder="Saisissez le nom"
                                                 aria-describedby="basic-icon-default-fullname2" />
                                         </div>
+                                    </div>
+                                    <div class="mb-3" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+                                      <label class="form-label" for="fileUpload">
+                                        &nbsp;Image
+                                      </label>
+                                      <input type="file" id="fileUpload" class="form-control visually-hidden" (change)="handleFileInput($event)">
+                                      <div class="drop-zone-text" *ngIf="!draggedOver">
+                                        Glissez et déposez une image ici(Max : 10Mo)
+                                      </div>
+                                      <div *ngIf="draggedOver" class="drop-zone-text">Relâchez pour charger l'image</div>
+                                      <img *ngIf="selectedFile" [src]="selectedFile" class="uploaded-image" alt="Uploaded Image">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="basic-icon-default-phone">
@@ -270,7 +263,7 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-phone2" class="input-group-text"><i
                                                     class="bx bx-dollar-circle"></i></span>
-                                            <input type="number" id="prix" class="form-control" placeholder="0.0" />
+                                            <input type="number" id="prix" class="form-control" placeholder="0.0" name="prix" [(ngModel)]="prix"/>
                                             <span id="basic-icon-default-email2" class="input-group-text">Ar</span>
                                         </div>
                                     </div>
@@ -281,7 +274,7 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-phone2" class="input-group-text"><i
                                                     class="bx bx-timer"></i></span>
-                                            <input type="number" id="duree" class="form-control" placeholder="0" />
+                                            <input type="number" id="duree" class="form-control" placeholder="0" name="duree" [(ngModel)]="duree"/>
                                             <span id="basic-icon-default-email2" class="input-group-text">mn</span>
                                         </div>
                                     </div>
@@ -292,23 +285,15 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-phone2" class="input-group-text"><i
                                                     class="bx bx-group"></i></span>
-                                            <input type="number" id="commission" class="form-control"
+                                            <input type="number" id="commission" class="form-control" name="commission" [(ngModel)]="commission"
                                                 placeholder="0.0" />
                                             <span id="basic-icon-default-email2" class="input-group-text">%</span>
                                         </div>
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="exampleFormControlSelect2" class="form-label">Employés</label>
-                                        <select multiple class="form-select" id="exampleFormControlSelect2"
-                                            aria-label="Multiple select example">
-                                            <option value="1">🚹 RAKOTONIAINA Fitia</option>
-                                            <option value="2">🚹 RAKOTOMALALA Faniry</option>
-                                        </select>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-outline-success">
+                                    <a href="javascript:void(0)" class="btn btn-outline-success" (click)="createService()">
                                         <span class="tf-icons bx bx-save"></span>&nbsp;&nbsp;Enregistrer
                                     </a>&nbsp;&nbsp;
-                                    <a href="javascript:void(0)" class="btn btn-outline-warning">
+                                    <a href="javascript:void(0)" class="btn btn-outline-warning" (click)="resetForm()">
                                         <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Rénitialiser
                                     </a>
                                 </div>
