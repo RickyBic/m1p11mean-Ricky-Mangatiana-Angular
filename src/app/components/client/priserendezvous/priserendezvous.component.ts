@@ -17,6 +17,7 @@ export class PriserendezvousComponent {
   services: Service[] = [];
   employes: Utilisateur[] = [];
   step: number = 0; // [0] Séléction service >> [1] Séléction date et heure >> [2] Paiement
+  nomServiceToFind: string = "";
   dateHeure: string = "";
   selectedServices: Service[] = [];
   serviceToAddId: string = "";
@@ -43,8 +44,14 @@ export class PriserendezvousComponent {
     this.utilisateurService.deconnexion();
   }
 
+  rechercher() {
+    this.step = 0;
+    this.getServicesAndEmployes();
+  }
+
   getServicesAndEmployes() {
-    this.http.get<Service[]>(this.baseURL + "/services")
+    const url = this.nomServiceToFind !== '' ? '/services/' + this.nomServiceToFind : '/services';
+    this.http.get<Service[]>(this.baseURL + url)
       .subscribe((services) => {
         this.http.get<Utilisateur[]>(this.baseURL + "/listeEmploye")
           .subscribe((employes) => {
@@ -65,6 +72,10 @@ export class PriserendezvousComponent {
   }
 
   prendreRdv(service: Service) {
+    if (this.nomServiceToFind !== '') {
+      this.nomServiceToFind = '';
+      this.getServicesAndEmployes();
+    }
     this.step = 1;
     const currentDate = new Date();
     currentDate.setHours(currentDate.getHours() + 3); // UTC+3 Madagascar

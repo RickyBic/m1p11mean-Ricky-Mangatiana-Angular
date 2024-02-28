@@ -8,8 +8,8 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
-  motDePasse: string = '';
+  email: string = 'admin@gmail.com';
+  motDePasse: string = 'admin';
 
   erreurMessage: string = '';
 

@@ -89,6 +89,13 @@
           </a>
         </li>
 
+        <li class="menu-item">
+          <a href="javascript:void(0)" (click)="deconnexion()" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-log-out"></i>
+            <div data-i18n="Basic">Se déconnecter</div>
+          </a>
+        </li>
+
       </ul>
     </aside>
     <!-- / Menu -->
@@ -108,14 +115,11 @@
 
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-          <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="text" class="form-control border-0 shadow-none" placeholder="Rechercher..." />
+              <small>Connecté en tant que {{ currentUser.nom }} {{ currentUser.prenom }}</small>
             </div>
           </div>
-          <!-- /Search -->
 
           <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -196,9 +200,9 @@
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  <tr *ngFor="let rendezVous of rendezVous">
+                  <tr *ngFor="let rendezVous of rendezVous" class="table-warning">
                     <td>{{ rendezVous.date | date:'dd/MM/yyyy HH:mm' }}</td>
-                    <td>{{ rendezVous.client.nom }}</td>
+                    <td>{{ rendezVous.client.nom }} {{ rendezVous.client.prenom }}</td>
                     <td>{{ rendezVous.service.nom }}</td>
                     <td><span class="badge bg-label-primary me-1">{{ rendezVous.service.duree }} minutes</span></td>
                     <td>
@@ -206,10 +210,9 @@
                       <span *ngIf="rendezVous.etat === 1" class="badge bg-label-success me-1">Effectué</span>
                     </td>
                     <td>
-                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-success"
-                        *ngIf="rendezVous.etat === 0"
-                          (click)="effectuerRendezVous(rendezVous._id)">
-                            <span class="tf-icons bx bx-user-x"></span>&nbsp;&nbsp;Effectué
+                      <a href="javascript:void(0)" class="btn btn-sm btn-outline-success" *ngIf="rendezVous.etat === 0"
+                        (click)="effectuerRendezVous(rendezVous._id)">
+                        <span class="tf-icons bx bx-user-x"></span>&nbsp;&nbsp;Effectué
                       </a>
                     </td>
                   </tr>

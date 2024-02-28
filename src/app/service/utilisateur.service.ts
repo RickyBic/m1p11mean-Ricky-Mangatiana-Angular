@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap, interval } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Utilisateur } from '../module/interface/model';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +19,7 @@ export class UtilisateurService {
   servicesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   services: Observable<any[]> = this.servicesSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
-    //this.runPermanently();
-  }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, motDePasse: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login`, { email, motDePasse })
@@ -139,19 +136,6 @@ export class UtilisateurService {
 
   getHorairesTravail(jourSemaine: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/horaires-travail/${jourSemaine}`);
-  }
-  
-  runPermanently(): void {
-    interval(120000).pipe( // Interval set to 2 minutes (120,000 milliseconds)
-      map(() => {
-        this.http.get(`${this.baseUrl} + "/rappelRendezvous`).subscribe(
-          response => { },
-          error => {
-            console.log(error);
-          }
-        );
-      })
-    ).subscribe();
   }
 
 }

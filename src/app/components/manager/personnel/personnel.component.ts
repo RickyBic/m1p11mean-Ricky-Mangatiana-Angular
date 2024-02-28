@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
 import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
@@ -22,8 +22,11 @@ export class PersonnelComponent {
 
   employeSelectionne: any;
 
+  @ViewChild('closeButton') closeButton: ElementRef;
+
   constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.closeButton = {} as ElementRef;
     this.utilisateurService.employeSubject.subscribe((data) => {
       this.listeEmploye = data;
     });
@@ -42,10 +45,7 @@ export class PersonnelComponent {
   ajouterEmploye() {
     if (this.employeSelectionne !== null) {
       this.utilisateurService.modifierUtilisateurEtService(this.employeSelectionne._id, this.nom, this.prenom, this.email, this.motDePasse, this.selectedServices).subscribe(() => {
-        this.successMessage = 'Employé modifié avec succès';
-        setTimeout(() => {
-          this.successMessage = '';
-        }, 5000);
+        this.closeModal();
         this.getAllEmploye();
         this.reset();
         this.employeSelectionne = null;
@@ -55,10 +55,7 @@ export class PersonnelComponent {
       });
     } else {
       this.utilisateurService.ajouterEmploye(this.nom, this.prenom, this.email, this.motDePasse, this.selectedServices).subscribe(() => {
-        this.successMessage = 'Employé ajouté avec succès';
-        setTimeout(() => {
-          this.successMessage = '';
-        }, 5000);
+        this.closeModal();
         this.getAllEmploye();
         this.reset();
       }, (error) => {
@@ -104,4 +101,10 @@ export class PersonnelComponent {
     this.employeSelectionne = null;
     this.successMessage = '';
   }
+
+  closeModal() {
+    // Close the modal
+    this.closeButton.nativeElement.click();
+  }
+
 }

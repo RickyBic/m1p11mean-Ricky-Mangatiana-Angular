@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
 import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
@@ -8,14 +8,16 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
   styleUrls: ['./horaires.component.css']
 })
 export class HorairesComponent {
-  jourSemaineRemplacement : number = 0;
+  jourSemaineRemplacement: number = 0;
   currentUser: any;
   horairesTravail: any[] = [];
   horairesTravailCorrespondant: any[] = [];
   horaireAchanger: any;
+  @ViewChild('closeButton') closeButton: ElementRef;
 
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.closeButton = {} as ElementRef;
   }
 
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class HorairesComponent {
   }
 
   jourSemaine(jour: number): string {
-    switch(jour) {
+    switch (jour) {
       case 1: return 'Lundi';
       case 2: return 'Mardi';
       case 3: return 'Mercredi';
@@ -50,21 +52,21 @@ export class HorairesComponent {
     }
   }
 
-  remplacerHoraire(jourSemaine: number,horaire: any) {
+  remplacerHoraire(jourSemaine: number, horaire: any) {
     this.jourSemaineRemplacement = jourSemaine;
     this.chargerHorairesTravail(jourSemaine);
-    this.horaireAchanger=horaire;
+    this.horaireAchanger = horaire;
   }
 
   chargerHorairesTravail(jourSemaine: number): void {
     this.utilisateurService.getHorairesTravail(jourSemaine).subscribe(
-        (data) => {
-          this.horairesTravailCorrespondant = data;
-        },
-        (error) => {
-          console.error('Erreur lors du chargement des horaires de travail :', error);
-        }
-      );
+      (data) => {
+        this.horairesTravailCorrespondant = data;
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des horaires de travail :', error);
+      }
+    );
   }
 
   choisirHoraire(horaire: any) {
@@ -75,14 +77,15 @@ export class HorairesComponent {
           response => {
             console.log(response);
             this.utilisateurService.login(this.currentUser.email, this.currentUser.motDePasse).subscribe(
-                  response => {
-                    this.currentUser = this.utilisateurService.getCurrentUser();
-                    this.getHorairesTravailUtilisateur();
-                    this.horaireAchanger=null;
-                  },
-                  error => {
-                    console.log(error);
-                  });
+              response => {
+                this.currentUser = this.utilisateurService.getCurrentUser();
+                this.getHorairesTravailUtilisateur();
+                this.horaireAchanger = null;
+                this.closeModal();
+              },
+              error => {
+                console.log(error);
+              });
           },
           error => {
             console.error(error);
@@ -94,4 +97,19 @@ export class HorairesComponent {
       }
     );
   }
+
+  decimalHoursToTimeString(decimalHours: number): string {
+    const hours = Math.floor(decimalHours);
+    const decimalPart = decimalHours - hours;
+    const minutes = Math.round(decimalPart * 60);
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    return `${formattedHours}:${formattedMinutes}`;
+  }
+
+  closeModal() {
+    // Close the modal
+    this.closeButton.nativeElement.click();
+  }
+
 }

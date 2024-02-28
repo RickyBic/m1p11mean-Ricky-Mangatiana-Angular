@@ -89,6 +89,13 @@
                     </a>
                 </li>
 
+                <li class="menu-item">
+                    <a href="javascript:void(0)" (click)="deconnexion()" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-log-out"></i>
+                        <div data-i18n="Basic">Se déconnecter</div>
+                    </a>
+                </li>
+
             </ul>
         </aside>
         <!-- / Menu -->
@@ -107,14 +114,11 @@
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-                    <!-- Search -->
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input type="text" class="form-control border-0 shadow-none" placeholder="Rechercher..." />
+                            <small>Connecté en tant que {{ currentUser.nom }} {{ currentUser.prenom }}</small>
                         </div>
                     </div>
-                    <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -183,68 +187,85 @@
                     <!--/ Breadcrumb -->
 
                     <!-- Content -->
-                          <div class="row" *ngIf="horairesTravail">
-                            <div class="row">
-                              <div class="row">
-                                <div class="col">
-                                  <table class="table table-bordered">
-                                    <thead>
-                                      <tr>
+
+                    <!-- Contextual Classes -->
+                    <div class="card mb-4">
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
                                         <th>Jour de la semaine</th>
                                         <th>Heure de début</th>
                                         <th>Heure de fin</th>
                                         <th></th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr *ngFor="let horaire of horairesTravail; let i = index">
-                                        <td>{{ jourSemaine(horaire.jourSemaine) }}</td>
-                                        <td>{{ horaire.heureDebut }}h</td>
-                                        <td>{{ horaire.heureFin }}h</td>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="horairesTravail">
+                                    <tr *ngFor="let horaire of horairesTravail; let i = index" class="table-info">
                                         <td>
-                                          <button type="button" (click)="remplacerHoraire(horaire.jourSemaine,horaire)" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
-                                            Remplacer
-                                          </button>
+                                            <span class="badge bg-label-primary me-1">
+                                                {{ jourSemaine(horaire.jourSemaine) }}
+                                            </span>
                                         </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
+                                        <td>
+                                            <span class="badge bg-label-warning me-1">
+                                                {{ decimalHoursToTimeString(horaire.heureDebut) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-label-warning me-1">
+                                                {{ decimalHoursToTimeString(horaire.heureFin) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button"
+                                                (click)="remplacerHoraire(horaire.jourSemaine,horaire)"
+                                                class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                                data-bs-target="#basicModal">
+                                                <span class="tf-icons bx bx-refresh"></span>&nbsp;&nbsp;Remplacer
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                            </div>
-                          </div>
-
-                          <!-- Modal -->
-                            <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
+                    <!-- Modal -->
+                    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel1">Choisir un horaire</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="col-5" *ngFor="let horaireCorrespondant of horairesTravailCorrespondant">
-                                      <div class="card mb-4">
-                                        <h5 class="card-header">
-                                          &nbsp;&nbsp;{{ jourSemaine(horaireCorrespondant.jourSemaine) }}
-                                        </h5>
-                                        <div class="card-body demo-vertical-spacing demo-only-element">
-                                          <p>Heure de début : {{ horaireCorrespondant.heureDebut }}h</p>
-                                          <p>Heure de fin : {{ horaireCorrespondant.heureFin }}h</p>
-                                        </div>
-                                        <div>
-                                          <button type="button" class="btn btn-sm btn-outline-primary" (click)="choisirHoraire(horaireCorrespondant)">
-                                            Choisir
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                                    <button #closeButton type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
-                              </div>
+                                <div class="modal-body">
+                                    <div class="col-5"
+                                        *ngFor="let horaireCorrespondant of horairesTravailCorrespondant">
+                                        <div class="card mb-4">
+                                            <h5 class="card-header">
+                                                &nbsp;&nbsp;{{ jourSemaine(horaireCorrespondant.jourSemaine) }}
+                                            </h5>
+                                            <div class="card-body demo-vertical-spacing demo-only-element">
+                                                <p>Heure de début : {{
+                                                    decimalHoursToTimeString(horaireCorrespondant.heureDebut) }}</p>
+                                                <p>Heure de fin : {{
+                                                    decimalHoursToTimeString(horaireCorrespondant.heureFin) }}</p>
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                                    (click)="choisirHoraire(horaireCorrespondant)">
+                                                    Choisir
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
                 <!-- / Content -->
 
                 <div class="content-backdrop fade"></div>

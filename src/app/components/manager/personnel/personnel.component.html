@@ -96,6 +96,13 @@
           </a>
         </li>
 
+        <li class="menu-item">
+          <a href="javascript:void(0)" (click)="deconnexion()" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-log-out"></i>
+            <div data-i18n="Basic">Se déconnecter</div>
+          </a>
+        </li>
+
       </ul>
     </aside>
     <!-- / Menu -->
@@ -115,14 +122,11 @@
 
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-          <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="text" class="form-control border-0 shadow-none" placeholder="Rechercher..." />
+              <small>Connecté en tant que {{ currentUser.nom }} {{ currentUser.prenom }}</small>
             </div>
           </div>
-          <!-- /Search -->
 
           <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -236,7 +240,8 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel1">Insertion&nbsp;&nbsp;▪️&nbsp;&nbsp;Modification</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" #closeButton class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
                 </div>
                 <div *ngIf="successMessage" class="alert alert-success">
                   {{ successMessage }}

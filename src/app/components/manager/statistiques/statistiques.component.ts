@@ -12,7 +12,7 @@ export class StatistiquesComponent {
 
   baseURL = "http://localhost:5000";
   currentUser: any;
-  dateDebut: string = "2024-02-01";
+  dateDebut: string = "2024-01-01";
   dateFin: string;
   tempsMoyenDeTravail: any;
   nombreDeReservationJournalier: number = 0;
@@ -52,7 +52,7 @@ export class StatistiquesComponent {
   }
 
   roundToTwoDecimal(number: number): number {
-    return parseFloat(number.toFixed(2));
+    return parseFloat(number.toFixed(4));
   }
 
 }

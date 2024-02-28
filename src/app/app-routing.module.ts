@@ -15,27 +15,30 @@ import { StatistiquesComponent } from './components/manager/statistiques/statist
 import { ServicesComponent } from './components/manager/services/services.component';
 import { DepensesComponent } from './components/manager/depenses/depenses.component';
 import { HorairetravailComponent } from './components/manager/horairetravail/horairetravail.component';
+import { ClientAuthGuard } from './module/helper/client.auth.guard';
+import { EmployeAuthGuard } from './module/helper/employe.auth.guard';
+import { ManagerAuthGuard } from './module/helper/manager.auth.guard';
 
 const routes: Routes = [
   /*----------[LOGIN]----------*/
   { path: 'se-connecter', component: LoginComponent },
   /*----------[CLIENT]----------*/
   { path: 'inscription', component: InscriptionComponent },
-  { path: 'prise-rendez-vous', component: PriserendezvousComponent },
-  { path: 'historique', component: HistoriqueComponent },
-  { path: 'preferences', component: PreferencesComponent },
-  { path: 'notifications', component: NotificationsComponent },
+  { path: 'prise-rendez-vous', component: PriserendezvousComponent, canActivate: [ClientAuthGuard] },
+  { path: 'historique', component: HistoriqueComponent, canActivate: [ClientAuthGuard] },
+  { path: 'preferences', component: PreferencesComponent, canActivate: [ClientAuthGuard] },
+  { path: 'notifications', component: NotificationsComponent, canActivate: [ClientAuthGuard] },
   /*----------[EMPLOYE]----------*/
-  { path: 'rendez-vous', component: RendezvousComponent },
-  { path: 'profil', component: ProfilComponent },
-  { path: 'horaires', component: HorairesComponent },
-  { path: 'taches', component: TachesComponent },
+  { path: 'rendez-vous', component: RendezvousComponent, canActivate: [EmployeAuthGuard] },
+  { path: 'profil', component: ProfilComponent, canActivate: [EmployeAuthGuard] },
+  { path: 'horaires', component: HorairesComponent, canActivate: [EmployeAuthGuard] },
+  { path: 'taches', component: TachesComponent, canActivate: [EmployeAuthGuard] },
   /*----------[MANAGER]----------*/
-  { path: 'personnel', component: PersonnelComponent },
-  { path: 'services', component: ServicesComponent },
-  { path: 'horairetravail', component: HorairetravailComponent },
-  { path: 'depenses', component: DepensesComponent },
-  { path: 'statistiques', component: StatistiquesComponent },
+  { path: 'personnel', component: PersonnelComponent, canActivate: [ManagerAuthGuard] },
+  { path: 'services', component: ServicesComponent, canActivate: [ManagerAuthGuard] },
+  { path: 'horairetravail', component: HorairetravailComponent, canActivate: [ManagerAuthGuard] },
+  { path: 'depenses', component: DepensesComponent, canActivate: [ManagerAuthGuard] },
+  { path: 'statistiques', component: StatistiquesComponent, canActivate: [ManagerAuthGuard] },
   /*----------[INDEX]----------*/
   { path: '', redirectTo: 'se-connecter', pathMatch: 'full' }
 ];
