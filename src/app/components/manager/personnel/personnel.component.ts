@@ -68,7 +68,6 @@ export class PersonnelComponent {
     }
   }
 
-
   selectionnerEmploye(employe: any) {
     this.employeSelectionne = employe;
     this.nom = employe.nom;
@@ -103,5 +102,6 @@ export class PersonnelComponent {
     this.motDePasse = '';
     this.selectedServices = [];
     this.employeSelectionne = null;
+    this.successMessage = '';
   }
 }
