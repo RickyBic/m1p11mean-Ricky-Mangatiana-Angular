@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Depense } from 'src/app/modules/interface/model';
+import { Depense } from 'src/app/module/interface/model';
 import { ScriptLoaderService } from 'src/app/service/scriptloader.service';
 import { UtilisateurService } from 'src/app/service/utilisateur.service';
 
