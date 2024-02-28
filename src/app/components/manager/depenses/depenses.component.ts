@@ -11,7 +11,7 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
 })
 export class DepensesComponent {
 
-  baseURL = "http://localhost:5000";
+  baseURL = "";
   currentUser: any;
   depenses: Depense[] = [];
   nom: String = "";
@@ -19,6 +19,7 @@ export class DepensesComponent {
 
   constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.baseURL = utilisateurService.getbaseUrl();
     this.getDepenses();
   }
 

@@ -8,7 +8,7 @@ import { Utilisateur } from '../module/interface/model';
   providedIn: 'root'
 })
 export class UtilisateurService {
-  private baseUrl = 'http://localhost:5000';
+  private baseUrl = 'https://m1p11mean-ricky-mangatiana-nodejs.onrender.com';
 
   userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   user: Observable<any> = this.userSubject.asObservable();
@@ -29,6 +29,10 @@ export class UtilisateurService {
           localStorage.setItem('currentUser', JSON.stringify(user));
         })
       );
+  }
+
+  getbaseUrl() {
+    return this.baseUrl;
   }
 
   getCurrentUser(): Utilisateur | null {

@@ -10,7 +10,7 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
 })
 export class StatistiquesComponent {
 
-  baseURL = "http://localhost:5000";
+  baseURL = "";
   currentUser: any;
   dateDebut: string = "2024-01-01";
   dateFin: string;
@@ -23,6 +23,7 @@ export class StatistiquesComponent {
 
   constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.baseURL = utilisateurService.getbaseUrl();
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');

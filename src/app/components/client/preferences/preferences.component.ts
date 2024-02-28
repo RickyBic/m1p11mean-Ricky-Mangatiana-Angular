@@ -11,7 +11,7 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
 })
 export class PreferencesComponent {
 
-  baseURL = "http://localhost:5000";
+  baseURL = "";
   currentUser: any;
   services: Service[] = [];
   employes: Utilisateur[] = [];
@@ -20,6 +20,7 @@ export class PreferencesComponent {
 
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.baseURL = utilisateurService.getbaseUrl();
     this.getServicesAndEmployes();
   }
 

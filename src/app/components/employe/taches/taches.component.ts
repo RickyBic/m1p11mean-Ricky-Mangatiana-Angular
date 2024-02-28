@@ -10,7 +10,7 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
 })
 export class TachesComponent {
 
-  baseURL = "http://localhost:5000";
+  baseURL = "";
   currentUser: any;
   taches: any; // Tâches effectuées [rendezvous]
   commission: number = 0;
@@ -18,6 +18,7 @@ export class TachesComponent {
 
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.baseURL = utilisateurService.getbaseUrl();
     this.getTaches();
   }
 

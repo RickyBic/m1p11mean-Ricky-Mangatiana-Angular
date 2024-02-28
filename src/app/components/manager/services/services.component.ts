@@ -10,7 +10,7 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
 })
 export class ServicesComponent {
 
-  baseURL = "http://localhost:5000";
+  baseURL = "";
   currentUser: any;
   services: any[] = [];
   serviceID = ""; // ID de l'élément dans le formulaire
@@ -25,6 +25,7 @@ export class ServicesComponent {
 
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.baseURL = utilisateurService.getbaseUrl();
     this.readService();
     this.closeButton = {} as ElementRef;
   }
@@ -36,12 +37,12 @@ export class ServicesComponent {
   deconnexion() {
     this.utilisateurService.deconnexion();
   }
-  
-   closeModal() {
+
+  closeModal() {
     // Close the modal
     this.closeButton.nativeElement.click();
   }
-  
+
   createService() {
     this.commission /= 100; // 0.0 [MongoDB]
     if (this.serviceID == '') {
@@ -52,7 +53,7 @@ export class ServicesComponent {
         "commission": this.commission
       };
       this.http.post(this.baseURL + "/service", bodyData).subscribe((resultData: any) => {
-         this.readService();
+        this.readService();
       });
     } else {
       this.updateService();
@@ -92,7 +93,7 @@ export class ServicesComponent {
     event.stopPropagation();
     this.draggedOver = false;
   }
-       
+
 
   readService() {
     this.http.get(this.baseURL + "/services")

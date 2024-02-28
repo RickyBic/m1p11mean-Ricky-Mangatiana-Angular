@@ -11,7 +11,7 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
 })
 export class HorairetravailComponent {
 
-  baseURL = "http://localhost:5000";
+  baseURL = "";
   currentUser: any;
   horaires: Horairetravail[] = [];
   heureDebut: String = "09:00";
@@ -20,6 +20,7 @@ export class HorairetravailComponent {
 
   constructor(private scriptLoaderService: ScriptLoaderService, private utilisateurService: UtilisateurService, private http: HttpClient) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.baseURL = utilisateurService.getbaseUrl();
     this.getHoraires();
   }
 

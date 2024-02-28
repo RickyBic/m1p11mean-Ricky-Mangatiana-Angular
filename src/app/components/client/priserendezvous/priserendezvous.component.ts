@@ -12,7 +12,7 @@ import { UtilisateurService } from 'src/app/service/utilisateur.service';
 })
 export class PriserendezvousComponent {
 
-  baseURL = "http://localhost:5000";
+  baseURL = "";
   currentUser: any;
   services: Service[] = [];
   employes: Utilisateur[] = [];
@@ -33,6 +33,7 @@ export class PriserendezvousComponent {
 
   constructor(private utilisateurService: UtilisateurService, private scriptLoaderService: ScriptLoaderService, private http: HttpClient, private router: Router) {
     this.currentUser = utilisateurService.getCurrentUser();
+    this.baseURL = utilisateurService.getbaseUrl();
     this.getServicesAndEmployes();
   }
 
