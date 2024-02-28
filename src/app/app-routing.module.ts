@@ -14,6 +14,7 @@ import { PersonnelComponent } from './components/manager/personnel/personnel.com
 import { StatistiquesComponent } from './components/manager/statistiques/statistiques.component';
 import { ServicesComponent } from './components/manager/services/services.component';
 import { DepensesComponent } from './components/manager/depenses/depenses.component';
+import { HorairetravailComponent } from './components/manager/horairetravail/horairetravail.component';
 
 const routes: Routes = [
   /*----------[LOGIN]----------*/
@@ -32,6 +33,7 @@ const routes: Routes = [
   /*----------[MANAGER]----------*/
   { path: 'personnel', component: PersonnelComponent },
   { path: 'services', component: ServicesComponent },
+  { path: 'horairetravail', component: HorairetravailComponent },
   { path: 'depenses', component: DepensesComponent },
   { path: 'statistiques', component: StatistiquesComponent },
   /*----------[INDEX]----------*/

@@ -51,4 +51,8 @@ export class StatistiquesComponent {
       });
   }
 
+  roundToTwoDecimal(number: number): number {
+    return parseFloat(number.toFixed(2));
+  }
+
 }

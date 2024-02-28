@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Utilisateur } from '../modules/interface/model';
+import { BehaviorSubject, Observable, tap, interval } from 'rxjs';
+import { Utilisateur } from '../module/interface/model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class UtilisateurService {
   servicesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   services: Observable<any[]> = this.servicesSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    //this.runPermanently();
+  }
 
   login(email: string, motDePasse: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login`, { email, motDePasse })
@@ -56,12 +59,12 @@ export class UtilisateurService {
 
   ajouterEmploye(nom: string, prenom: string, email: string, motDePasse: string, selectedServices: string[]): Observable<any> {
     const newEmp = {
-        nom,
-        prenom,
-        email,
-        motDePasse,
-        services: selectedServices,
-        profil: 1
+      nom,
+      prenom,
+      email,
+      motDePasse,
+      services: selectedServices,
+      profil: 1
     };
     return this.http.post<any>(`${this.baseUrl}/nouveauEmploye`, newEmp);
   }
@@ -95,13 +98,13 @@ export class UtilisateurService {
       email,
       motDePasse,
     };
-    const utilisateurUpdated =  this.http.put<any>(`${this.baseUrl}/modifyEmploye/${id}`, clientToModif);
-    this.login(email,motDePasse);
+    const utilisateurUpdated = this.http.put<any>(`${this.baseUrl}/modifyEmploye/${id}`, clientToModif);
+    this.login(email, motDePasse);
     this.getCurrentUser();
     return utilisateurUpdated;
   }
 
-  modifierUtilisateurEtService(id: string, nom: string, prenom: string, email: string, motDePasse: string,services: string[]): Observable<any> {
+  modifierUtilisateurEtService(id: string, nom: string, prenom: string, email: string, motDePasse: string, services: string[]): Observable<any> {
     const clientToModif = {
       nom,
       prenom,
@@ -109,7 +112,7 @@ export class UtilisateurService {
       motDePasse,
       services
     };
-    const utilisateurUpdated =  this.http.put<any>(`${this.baseUrl}/modifyEmploye/${id}`, clientToModif);
+    const utilisateurUpdated = this.http.put<any>(`${this.baseUrl}/modifyEmploye/${id}`, clientToModif);
     return utilisateurUpdated;
   }
 
@@ -120,4 +123,18 @@ export class UtilisateurService {
     });
     return observable;
   }
+
+  runPermanently(): void {
+    interval(120000).pipe( // Interval set to 2 minutes (120,000 milliseconds)
+      map(() => {
+        this.http.get(`${this.baseUrl} + "/rappelRendezvous`).subscribe(
+          response => { },
+          error => {
+            console.log(error);
+          }
+        );
+      })
+    ).subscribe();
+  }
+
 }

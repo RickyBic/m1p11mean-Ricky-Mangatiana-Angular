@@ -75,7 +75,7 @@
                     </a>
                 </li>
 
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a routerLink="/horairetravail" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-time-five"></i>
                         <div data-i18n="Basic">Horaires</div>
@@ -89,7 +89,7 @@
                     </a>
                 </li>
 
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a routerLink="/statistiques" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-bar-chart"></i>
                         <div data-i18n="Basic">Statistiques</div>
@@ -180,8 +180,8 @@
                             <!-- Custom style1 Breadcrumb -->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1">
-                                    <li class="breadcrumb-item">Statistiques</li>
-                                    <li class="breadcrumb-item">Splendeur</li>
+                                    <li class="breadcrumb-item">Horaires</li>
+                                    <li class="breadcrumb-item">Gestion</li>
                                 </ol>
                             </nav>
                             <!--/ Custom style1 Breadcrumb -->
@@ -189,52 +189,66 @@
                     </div>
                     <!--/ Breadcrumb -->
 
-                    <!-- Période -->
-                    <div class="col-12">
-                        <div class="card mb-4">
-                            <h6 class="card-header"><small class="text-muted">
-                                    1.</small>&nbsp;&nbsp;Choisissez la période
-                            </h6>
-                            <div class="card-body demo-vertical-spacing demo-only-element">
-                                <div class="input-group">
-                                    <span class="input-group-text">Date début</span>
-                                    <input [(ngModel)]="dateDebut" (change)="getStatistiques()" type="date"
-                                        class="form-control" />
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-text">Date fin</span>
-                                    <input [(ngModel)]="dateFin" (change)="getStatistiques()" type="date"
-                                        class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Contextual Classes -->
                     <div class="card mb-4">
-                        <h6 class="card-header"><small class="text-muted">
-                                2.</small>&nbsp;&nbsp;Temps moyen de travail
-                        </h6>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Identifiant</th>
-                                        <th>Nom</th>
-                                        <th>Prénom</th>
-                                        <th>Email</th>
-                                        <th>Temps</th>
+                                        <th>Jour semaine</th>
+                                        <th>Heure début</th>
+                                        <th>Heure fin</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr *ngFor="let row of tempsMoyenDeTravail" class="table-warning">
-                                        <td><span class="badge bg-label-primary me-1">{{ row.employe._id }}</span>
+                                    <tr *ngFor="let horaire of horaires" class="table-success">
+                                        <td>
+                                            <span class="badge bg-label-primary me-1">
+                                                {{ getNomJour(horaire.jourSemaine) }}
+                                            </span>
                                         </td>
-                                        <td>{{ row.employe.nom }}</td>
-                                        <td>{{ row.employe.prenom }}</td>
-                                        <td>{{ row.employe.email }}</td>
-                                        <td><span class="badge bg-label-success me-1">{{ roundToTwoDecimal(row.moyenne /
-                                                60) }} <small>heures</small></span>
+                                        <td>
+                                            <span class="badge bg-label-warning me-1">
+                                                {{ decimalHoursToTimeString(horaire.heureDebut) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-label-warning me-1">
+                                                {{ decimalHoursToTimeString(horaire.heureFin) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" (click)="supprimer(horaire._id)"
+                                                class="btn btn-sm btn-outline-danger">
+                                                <span class="tf-icons bx bx-trash"></span>&nbsp;&nbsp;Supprimer
+                                                horaire
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <td class="col-3">
+                                            <select [(ngModel)]="jourSemaine" class="form-select"
+                                                id="exampleFormControlSelect1" aria-label="Default select example">
+                                                <option *ngFor="let i of [1, 2, 3, 4, 5 , 6, 0]" [value]="i">
+                                                    {{ getNomJour(i) }}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td class="col-3">
+                                            <input class="form-control" type="time" [(ngModel)]="heureDebut"
+                                                id="html5-time-input" />
+                                        </td>
+                                        <td class="col-3">
+                                            <input class="form-control" type="time" [(ngModel)]="heureFin"
+                                                id="html5-time-input" />
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" (click)="ajouter()"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <span class="tf-icons bx bx-list-plus"></span>&nbsp;&nbsp;Ajouter
+                                                horaire
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -242,130 +256,6 @@
                         </div>
                     </div>
                     <!--/ Contextual Classes -->
-
-                    <div class="row">
-                        <!-- Order Statistics -->
-                        <div class="col-4">
-                            <div class="card h-100">
-                                <h6 class="card-header mb-3"><small class="text-muted">
-                                        3.</small>&nbsp;&nbsp;Nombre de réservation
-                                </h6>
-                                <div class="card-body">
-                                    <ul class="p-0 m-0">
-                                        <li class="d-flex mb-4 pb-1">
-                                            <div class="avatar flex-shrink-0 me-3">
-                                                <span class="avatar-initial rounded bg-label-success"><i
-                                                        class="bx bx-time-five"></i></span>
-                                            </div>
-                                            <div
-                                                class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                                <div class="me-2">
-                                                    <h6 class="mb-0">Journalier</h6>
-                                                    <small class="text-muted">par jour</small>
-                                                </div>
-                                                <div class="user-progress">
-                                                    <small class="fw-semibold">
-                                                        <strong>
-                                                            {{ roundToTwoDecimal(nombreDeReservationJournalier) }}
-                                                            réservations
-                                                        </strong> / jour
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="d-flex mb-4 pb-1">
-                                            <div class="avatar flex-shrink-0 me-3">
-                                                <span class="avatar-initial rounded bg-label-primary"><i
-                                                        class="bx bx-calendar"></i></span>
-                                            </div>
-                                            <div
-                                                class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                                <div class="me-2">
-                                                    <h6 class="mb-0">Mensuel</h6>
-                                                    <small class="text-muted">par mois</small>
-                                                </div>
-                                                <div class="user-progress">
-                                                    <small class="fw-semibold"><strong>{{
-                                                            roundToTwoDecimal(nombreDeReservationMensuel) }}
-                                                            réservations</strong> /
-                                                        mois</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <div class="card h-100">
-                                <h6 class="card-header mb-3"><small class="text-muted">
-                                        4.</small>&nbsp;&nbsp;Chiffre d’affaires
-                                </h6>
-                                <div class="card-body">
-                                    <ul class="p-0 m-0">
-                                        <li class="d-flex mb-4 pb-1">
-                                            <div class="avatar flex-shrink-0 me-3">
-                                                <span class="avatar-initial rounded bg-label-success"><i
-                                                        class="bx bx-time-five"></i></span>
-                                            </div>
-                                            <div
-                                                class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                                <div class="me-2">
-                                                    <h6 class="mb-0">Journalier</h6>
-                                                    <small class="text-muted">par jour</small>
-                                                </div>
-                                                <div class="user-progress">
-                                                    <small class="fw-semibold"><strong>{{
-                                                            roundToTwoDecimal(chiffreAffaireJournalier) }}
-                                                            Ar</strong> /
-                                                        jour</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="d-flex mb-4 pb-1">
-                                            <div class="avatar flex-shrink-0 me-3">
-                                                <span class="avatar-initial rounded bg-label-primary"><i
-                                                        class="bx bx-calendar"></i></span>
-                                            </div>
-                                            <div
-                                                class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                                <div class="me-2">
-                                                    <h6 class="mb-0">Mensuel</h6>
-                                                    <small class="text-muted">par mois</small>
-                                                </div>
-                                                <div class="user-progress">
-                                                    <small class="fw-semibold"><strong>{{
-                                                            roundToTwoDecimal(chiffreAffaireMensuel) }}
-                                                            Ar</strong> /
-                                                        mois</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                        <div class="avatar flex-shrink-0">
-                                            <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card"
-                                                class="rounded" />
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">Bénéfice mensuel</div>
-                                    <h3 class="card-title text-nowrap mb-1">{{ roundToTwoDecimal(beneficeMensuel) }} Ar
-                                        <small>/
-                                            mois</small>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/ Order Statistics -->
-                    </div>
 
                 </div>
                 <!-- / Content -->
